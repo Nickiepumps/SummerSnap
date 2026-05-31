@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: aa4baa688f41ba249930cfd507078dcd
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - footstepAudio: {instanceID: 0}
+  - controllerNoPowder: {instanceID: 0}
+  - controllerWithPowder: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

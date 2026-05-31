@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ea68ca37142ce340bb8e93808b54b50, type: 3}
+  m_Name: Dialog_dog
+  m_EditorClassIdentifier: 
+  lines:
+  - speaker: 0
+    emotion: 0
+    text: "\u0E2D\u0E31\u0E48\u0E07\u0E40\u0E1B\u0E32\n(\u0E2A\u0E38\u0E19\u0E31\u0E02\u0E15\u0E31\u0E27\u0E19\u0E35\u0E49...)"
+    changeBackground: 0
+    newBackground: {fileID: 0}
+    hasChoices: 0
+    choices: []
+    nextLineIndex: 1
+  - speaker: 0
+    emotion: 0
+    text: "\u0E2D\u0E31\u0E48\u0E07\u0E40\u0E1B\u0E32\n(.......)"
+    changeBackground: 0
+    newBackground: {fileID: 0}
+    hasChoices: 1
+    choices:
+    - choiceText: "\u0E25\u0E39\u0E1A\u0E2B\u0E31\u0E27\u0E2B\u0E21\u0E32"
+      nextLineIndex: 2
+      effectType: 1
+      choiceResultText: "\u0E2D\u0E31\u0E48\u0E07\u0E40\u0E1B\u0E32\n\"\u0E19\u0E48\u0E32\u0E23\u0E31\u0E01\u0E08\u0E31\u0E07\u0E40\u0E25\u0E22\""
+      speaker: 0
+      emotion: 4
+    - choiceText: "\u0E22\u0E37\u0E19\u0E21\u0E2D\u0E07 "
+      nextLineIndex: 6
+      effectType: 2
+      choiceResultText: "\u0E23\u0E34\u0E27 \n\u201C\u0E2D\u0E22\u0E32\u0E01\u0E25\u0E39\u0E1A\u0E2B\u0E23\u0E2D\u0E04\u0E23\u0E31\u0E1A\u201D"
+      speaker: 1
+      emotion: 0
+    - choiceText: "\u0E40\u0E14\u0E34\u0E19\u0E1C\u0E48\u0E32\u0E19"
+      nextLineIndex: 8
+      effectType: 0
+      choiceResultText: "\u0E2D\u0E31\u0E48\u0E07\u0E40\u0E1B\u0E32\n\"\u0E40\u0E23\u0E32\u0E44\u0E1B\u0E01\u0E31\u0E19\u0E40\u0E16\u0E2D\u0E30\u0E23\u0E34\u0E27\""
+      speaker: 0
+      emotion: 0
+    nextLineIndex: 0
+  - speaker: 1
+    emotion: 0
+    text: "\u0E23\u0E34\u0E27 \n\u201C\u0E1E\u0E35\u0E48\u0E0A\u0E2D\u0E1A\u0E2B\u0E21\u0E32\u0E2B\u0E23\u0E2D\u0E04\u0E23\u0E31\u0E1A\u201D"
+    changeBackground: 1
+    newBackground: {fileID: 21300000, guid: 27477d40c7d581542835bf59291a6154, type: 3}
+    hasChoices: 0
+    choices: []
+    nextLineIndex: 3
+  - speaker: 0
+    emotion: 4
+    text: "\u0E2D\u0E31\u0E48\u0E07\u0E40\u0E1B\u0E32 \n\u201C\u0E0A\u0E2D\u0E1A\u0E19\u0E30
+      \u0E41\u0E15\u0E48\u0E17\u0E35\u0E48\u0E1A\u0E49\u0E32\u0E19\u0E40\u0E25\u0E35\u0E49\u0E22\u0E07\u0E41\u0E21\u0E27\u0E44\u0E27\u0E49\u201D"
+    changeBackground: 1
+    newBackground: {fileID: 21300000, guid: 27477d40c7d581542835bf59291a6154, type: 3}
+    hasChoices: 0
+    choices: []
+    nextLineIndex: 5
+  - speaker: 1
+    emotion: 4
+    text: "\u0E23\u0E34\u0E27 \n\u201C\u0E2D\u0E4B\u0E2D \u0E19\u0E49\u0E2D\u0E07\u0E04\u0E19\u0E19\u0E31\u0E49\u0E19\u201D\r\n"
+    changeBackground: 1
+    newBackground: {fileID: 21300000, guid: 27477d40c7d581542835bf59291a6154, type: 3}
+    hasChoices: 0
+    choices: []
+    nextLineIndex: 8
+  - speaker: 0
+    emotion: 4
+    text: "\u0E2D\u0E31\u0E48\u0E48\u0E07\u0E40\u0E1B\u0E32\n\" (^_^)? \""
+    changeBackground: 1
+    newBackground: {fileID: 21300000, guid: 27477d40c7d581542835bf59291a6154, type: 3}
+    hasChoices: 0
+    choices: []
+    nextLineIndex: 8
+  - speaker: 0
+    emotion: 1
+    text: "\u0E2D\u0E31\u0E48\u0E07\u0E40\u0E1B\u0E32\n\u201C\u0E44\u0E21\u0E48\u0E2D\u0E30
+      \u0E23\u0E31\u0E07\u0E40\u0E01\u0E35\u0E22\u0E08 \u0E14\u0E39\u0E2A\u0E01\u0E1B\u0E23\u0E01\u0E21\u0E32\u0E01\u201D"
+    changeBackground: 0
+    newBackground: {fileID: 0}
+    hasChoices: 0
+    choices: []
+    nextLineIndex: 8
+  - speaker: 1
+    emotion: 3
+    text: "\u0E23\u0E34\u0E27\n\"........\""
+    changeBackground: 0
+    newBackground: {fileID: 0}
+    hasChoices: 0
+    choices: []
+    nextLineIndex: -1
+  - speaker: 1
+    emotion: 0
+    text: "\u0E23\u0E34\u0E27\n\"........\""
+    changeBackground: 0
+    newBackground: {fileID: 0}
+    hasChoices: 0
+    choices: []
+    nextLineIndex: -1

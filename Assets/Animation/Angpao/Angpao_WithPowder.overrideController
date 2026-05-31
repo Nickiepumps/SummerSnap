@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Angpao_WithPowder
+  m_Controller: {fileID: 9100000, guid: c96e9b3557c467841a1036192c7cdd8c, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 880f392b8395f2942894d97b3d6af938, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 89765c93aa0ef1945b980ce7b30d41c7, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: d0be17507775e74419f629899db7a15d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2b5e8604ada379b46810c12218e52750, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: cd5f30b67fbb08b42b1d46d58888ecc1, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a1352ab8215497f4db7c9abb336ea771, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 4f606341957ecdd49bc6f42ed3444a7d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0c29e85805d710443b22b9381ac6d3d0, type: 2}

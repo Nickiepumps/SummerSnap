@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7655087484131949649
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8464990664541353582}
+  - component: {fileID: 8855482002936077647}
+  m_Layer: 5
+  m_Name: DialogManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8464990664541353582
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7655087484131949649}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 967.5026, y: 659.981, z: 4.057044}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8855482002936077647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7655087484131949649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ac936fdb8f0304468eb40d76de1de60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftCharacterSprites:
+    normal: {fileID: 6426733045084846112, guid: b8b3179b9f984c9438021afb6d0540fb, type: 3}
+    normalGray: {fileID: 1902208238856589715, guid: 5507601973cc1584a89eab0eb54f2203, type: 3}
+    angry: {fileID: -5117882673350922694, guid: 59e5322607289b341ad461e6ba9e6353, type: 3}
+    angryGray: {fileID: -3562948993904505862, guid: 62e465f635c0a304cb528df1bad4c9f2, type: 3}
+    confident: {fileID: -9201698649285398059, guid: 877b4c50654297e4b89f90cb21d6ef5a, type: 3}
+    confidentGray: {fileID: -8916079360993746815, guid: 6154bb2c64de3164aa98cf0eb83446ae, type: 3}
+    sad: {fileID: -8670327127218863801, guid: 2ba378663ac3bcd40ba12cfb038b39d3, type: 3}
+    sadGray: {fileID: -7806722326492517226, guid: 800259b25e3a73147bfbb28d8c59d6ff, type: 3}
+    smile: {fileID: -7191361637442641586, guid: a20114025ae257f4d9cccb3c0ab0e705, type: 3}
+    smileGray: {fileID: 6850523066746174317, guid: bf0efae682fecf243bfb8604c9860027, type: 3}
+    surprised: {fileID: 309784321027262592, guid: 3ed6c675e5365c4488cd0b92d6ac0d6d, type: 3}
+    surprisedGray: {fileID: -278697672227037935, guid: 20fc6878e82d4b645b41b9a658d04e1b, type: 3}
+    sweatDrop: {fileID: 8254775677573225316, guid: 8a2af9fd6506eb34cb80f97b3578dfc4, type: 3}
+    sweatDropGray: {fileID: 5736697134664111154, guid: 08ee799cdcc4e8147a7c18b1c7405c54, type: 3}
+  rightCharacterSprites:
+    normal: {fileID: 8891233493155716574, guid: 68ff6a31b4a6b9f41b0beb2e71a2d88c, type: 3}
+    normalGray: {fileID: 7289945815599828268, guid: 3c1eeafa10f5ec644a47476e188360e6, type: 3}
+    angry: {fileID: -4126509738532388259, guid: d13e28df05e1649459fb94e09e83d335, type: 3}
+    angryGray: {fileID: 6930918080846153645, guid: dabe0fed855aca54b9d294b2fbfee473, type: 3}
+    confident: {fileID: 2661627239322067033, guid: 0f141263d81a51e44b20986775544d62, type: 3}
+    confidentGray: {fileID: 949911544362614298, guid: 1814b539f87336d40bf52a99b969ba00, type: 3}
+    sad: {fileID: -4024675871462588864, guid: 1ffa1438c9eafd6419d6507e2128538f, type: 3}
+    sadGray: {fileID: 6112228268015234476, guid: 827e4088781021747b5a5390d3fa5c9b, type: 3}
+    smile: {fileID: 8528061762625373229, guid: 10fa9ad0f4110ae4aaa7e78ad40ad85c, type: 3}
+    smileGray: {fileID: 2685093348062478759, guid: a5de3d0351299c148be956e0b50f331a, type: 3}
+    surprised: {fileID: 7477417320866377919, guid: c66b978d796eb9c42b4275f9376ac653, type: 3}
+    surprisedGray: {fileID: 6630818368992725315, guid: 4923c939d90b71a468f4bffe0b487296, type: 3}
+    sweatDrop: {fileID: 7477417320866377919, guid: c66b978d796eb9c42b4275f9376ac653, type: 3}
+    sweatDropGray: {fileID: 6630818368992725315, guid: 4923c939d90b71a468f4bffe0b487296, type: 3}
+  leftCharacterSpritesWithPowder:
+    normal: {fileID: 2075188753894026501, guid: ae61b79edfa31c24ba3b7bc6862fe2f1, type: 3}
+    normalGray: {fileID: -827788818084018771, guid: fc683f509cecd3c419b2e1bb288888dc, type: 3}
+    angry: {fileID: 3876198812212005613, guid: 28677e1cd0fab3d4ca920639b925878b, type: 3}
+    angryGray: {fileID: -6393515141420163829, guid: 9f9fea4a333e92c48916c9d7c47038d9, type: 3}
+    confident: {fileID: -5542406351138283647, guid: b52f4aee4f17c364c9a628eb86f284f8, type: 3}
+    confidentGray: {fileID: 3234216474787435158, guid: 062e250cdb1f26e4892e13762b53ff0e, type: 3}
+    sad: {fileID: -2972723904445971115, guid: 9fd1911a4c386a349b669d4363f3956c, type: 3}
+    sadGray: {fileID: 4895865709673728584, guid: b011469d821cb4346a9a382252940a36, type: 3}
+    smile: {fileID: -7596148247575480525, guid: 1377a717db74ea143b8ae0372705109f, type: 3}
+    smileGray: {fileID: 1532420234516683442, guid: fc0ccfcb720416a41a94454025c5fe01, type: 3}
+    surprised: {fileID: -7399692622270970907, guid: 1b76201df4cae2f4580784048810c2bf, type: 3}
+    surprisedGray: {fileID: -7610631992595973937, guid: 692c2781b38dc66438d910df20b39833, type: 3}
+    sweatDrop: {fileID: 1771550615400222293, guid: cb02a628aac89f742a967b31f39c35fc, type: 3}
+    sweatDropGray: {fileID: 2644283957597615041, guid: 27dd8ba0dd80ba34c9a80878c1da9372, type: 3}
+  rightCharacterSpritesWithPowder:
+    normal: {fileID: -1015368908573595951, guid: 8331fc0c6ca575345a21a52c1ecfb004, type: 3}
+    normalGray: {fileID: 2692430141482535137, guid: 78af9f5dd4005b348adec76e66e32497, type: 3}
+    angry: {fileID: -8807771709295671011, guid: 514bcc0f20224a042ae7e55da795ec90, type: 3}
+    angryGray: {fileID: 5634296712665150822, guid: e3842a7ef49f32a43ab92003ef6e9be6, type: 3}
+    confident: {fileID: 3565542527499303761, guid: 5b7716a5fb9e69b49be6bc98f73050f5, type: 3}
+    confidentGray: {fileID: -3120060204571487310, guid: 19648884e4285cd4a8e91b1e995875d8, type: 3}
+    sad: {fileID: -4572174742261643345, guid: a721f6b1cadb34d478db43e0e9603432, type: 3}
+    sadGray: {fileID: 8336709916289189831, guid: c607bde33d349814caacf459cf02ed2d, type: 3}
+    smile: {fileID: 6252505438517797321, guid: 1d2e9b3a66758c846b86f79d7fb42976, type: 3}
+    smileGray: {fileID: 1477415032048747225, guid: d9acb25d10977df429a56db6a7012749, type: 3}
+    surprised: {fileID: -4727805162707284213, guid: 47514b607adf1184ebdc0eb8fa69e51d, type: 3}
+    surprisedGray: {fileID: -7610631992595973937, guid: 692c2781b38dc66438d910df20b39833, type: 3}
+    sweatDrop: {fileID: -8075231136399425463, guid: a027db4570599114d9b071f0c3de52bb, type: 3}
+    sweatDropGray: {fileID: -703685139381382756, guid: 651a1e051c4682b45a463a273f45137d, type: 3}
+  lines: []
+  dialogCanvas: {fileID: 0}
+  dialogPanel: {fileID: 0}
+  dialogText: {fileID: 0}
+  leftCharacterImage: {fileID: 0}
+  rightCharacterImage: {fileID: 0}
+  backgroundImage: {fileID: 0}
+  choicesPanel: {fileID: 0}
+  choiceButtonPrefab: {fileID: 1003628440063445513, guid: 4e0fcca7ab93f0441ade4a80910db338, type: 3}
+  hasPowder: 0

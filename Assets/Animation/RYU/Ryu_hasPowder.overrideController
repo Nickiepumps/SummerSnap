@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ryu_hasPowder
+  m_Controller: {fileID: 9100000, guid: a812f53c65076fb42988e8d0110c96a9, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 484ab288684bbe24eae01fd4111f958f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 200944ef1269cf14282675740aa86071, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a9e2fcdb1befaec4ea283569d687055a, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ca9a101c728be58478db42c2943a5281, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 87bd9a9b01b66c449b2d1ab053a49ba4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a584813b712d36a4c9c0d07b90c5a5a7, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 7ca0c1698d2dd704f849e3da8766e672, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 784dca30f50427a47b4ec060f108ecfa, type: 2}
