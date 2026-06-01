@@ -20,7 +20,7 @@ public class PhoneUIManager : MonoBehaviour
     public AudioClip openPhoneSFX;   // เสียงตอนเปิดโทรศัพท์
     public AudioClip closePhoneSFX;  // เสียงตอนปิดโทรศัพท์
 
-    private bool isOpen = false;
+    public bool isOpen { get; private set; } = false;
     private GameManager gameManager => GameManager.Instance;
 
     private void Awake()
@@ -63,7 +63,7 @@ public class PhoneUIManager : MonoBehaviour
     {
         PlayerController player = GameManager.Instance.GetPlayerController();
 
-        if (player.isOnDialogue == true) return;
+        if (player.isOnDialogue == true || GameManager.Instance.isPhotoshooting == true) return;
 
         isOpen = !isOpen;
         if (phoneUI != null) phoneUI.SetActive(isOpen);

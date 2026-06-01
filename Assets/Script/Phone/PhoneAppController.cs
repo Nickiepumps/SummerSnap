@@ -69,6 +69,8 @@ public class PhoneAppController : MonoBehaviour
 
         if (callingUI != null && callingUI.activeSelf)
             callingUI.SetActive(false);
+
+        PhoneUIManager.Instance.TogglePhone();
     }
 
     private void OnDestroy()

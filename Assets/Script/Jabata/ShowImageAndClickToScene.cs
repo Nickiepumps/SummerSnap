@@ -27,7 +27,7 @@ public class ShowImageAndClickToScene : MonoBehaviour
 
     void Update()
     {
-        if (isPlayerInside && Input.GetMouseButtonDown(0))
+        if (isPlayerInside && PhoneUIManager.Instance.isOpen == false && Input.GetMouseButtonDown(0))
         {
             TryStartQuest();
         }
@@ -65,6 +65,7 @@ public class ShowImageAndClickToScene : MonoBehaviour
         if (player != null)
             PlayerPositionManager.SavePlayerPosition(player.transform.position);
 
+        GameManager.Instance.TogglePhotoshootStatus(true);
         SceneManager.LoadScene(sceneToLoad);
     }
 

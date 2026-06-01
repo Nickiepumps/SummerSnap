@@ -43,7 +43,7 @@ public class NPCInteractTrigger : MonoBehaviour
         if (isPlayerNear && dialogManager != null && !dialogManager.dialogPanel.activeSelf)
         {
             // กด F → เริ่ม Dialog
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.F) && PhoneUIManager.Instance.isOpen == false)
             {
                 dialogManager.StartDialog(lines);
                 UpdateFIcon(); // ซ่อน F ตอน Dialog เริ่ม

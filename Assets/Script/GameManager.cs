@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     private PlayerController playerController;
     private GameObject ryu;
     private bool currentDialogHasPowder = false;
+    public bool isPhotoshooting { get; private set; } = false;
 
     [Header("Animator Controllers - Ryu")]
     public RuntimeAnimatorController ryuControllerNoPowder;
@@ -226,6 +227,8 @@ public class GameManager : MonoBehaviour
         ryu = Instantiate(ryuPrefab, Vector3.zero, Quaternion.identity);
         DontDestroyOnLoad(ryu);
     }
-
-
+    public void TogglePhotoshootStatus(bool status)
+    {
+        isPhotoshooting = status;
+    }
 }

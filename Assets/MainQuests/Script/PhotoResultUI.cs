@@ -211,6 +211,7 @@ public class PhotoResultUI : MonoBehaviour
         }
 
         // โหลดกลับไป Scene หลัก
+        GameManager.Instance.TogglePhotoshootStatus(false);
         SceneManager.LoadScene(nextSceneName);
     }
 

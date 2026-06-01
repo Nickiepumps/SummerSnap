@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class RyuController : MonoBehaviour
 {
-    public enum RyuState { Idle, Follow, Wander, Ending }
+    public enum RyuState { Idle, Follow, Wander, Ending, Wait }
 
     [Header("References")]
     public Transform player;
@@ -92,6 +92,7 @@ public class RyuController : MonoBehaviour
             case RyuState.Follow: HandleFollow(); break;
             case RyuState.Wander: HandleWander(); break;
             case RyuState.Ending: HandleEnding(); break;
+            case RyuState.Wait: HandleWait(); break;
         }
     }
 
@@ -138,8 +139,6 @@ public class RyuController : MonoBehaviour
             baseSpeed = speed;
             isCalling = false;
 
-            OnArrivedAtPlayer?.Invoke();
-
             // ✅ เล่นเสียงหัวเราะผ่าน AudioManager ครั้งเดียว
             if (!hasLaughed && laughClip != null && AudioManager.Instance != null)
             {
@@ -147,21 +146,8 @@ public class RyuController : MonoBehaviour
                 hasLaughed = true;
             }
 
-            if (Mathf.Abs(player.GetComponent<Rigidbody2D>().linearVelocity.x) < 0.01f)
-            {
-                idleTimer += Time.deltaTime;
-                if (idleTimer >= idleToWanderDelay)
-                {
-                    idleTimer = 0f;
-                    currentState = RyuState.Wander;
-                }
-                else SetIdleAnim();
-            }
-            else
-            {
-                idleTimer = 0f;
-                SetIdleAnim();
-            }
+            OnArrivedAtPlayer?.Invoke();
+            currentState = RyuState.Wait;
         }
     }
 
@@ -191,7 +177,24 @@ public class RyuController : MonoBehaviour
             SetIdleAnim();
         }
     }
-
+    private void HandleWait()
+    {
+        if (Mathf.Abs(player.GetComponent<Rigidbody2D>().linearVelocity.x) < 0.01f)
+            {
+                idleTimer += Time.deltaTime;
+                if (idleTimer >= idleToWanderDelay)
+                {
+                    idleTimer = 0f;
+                    currentState = RyuState.Wander;
+                }
+                else SetIdleAnim();
+            }
+            else
+            {
+                idleTimer = 0f;
+                SetIdleAnim();
+            }
+    }
     void MoveTowards(Vector2 target, float multiplier = 1f)
     {
         float moveSpeed = (isCalling ? baseSpeed * callSpeedMultiplier : baseSpeed) * multiplier;
@@ -201,8 +204,15 @@ public class RyuController : MonoBehaviour
         if (direction > 0.01f) lastDirection = 1;
         else if (direction < -0.01f) lastDirection = -1;
 
-        rb.MovePosition(newPos);
-        SetWalkAnim();
+        if(Vector2.Distance(rb.position, target) <= 0.2f)
+        {
+            SetIdleAnim();
+        }
+        else
+        {
+            rb.MovePosition(newPos);
+            SetWalkAnim();
+        }
     }
 
     void SetIdleAnim()
@@ -215,7 +225,6 @@ public class RyuController : MonoBehaviour
     {
         SetAnimation(lastDirection == 1 ? 2 : 3);
     }
-
     void SetAnimation(int stateValue)
     {
         if (animator != null)

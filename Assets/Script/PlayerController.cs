@@ -114,7 +114,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
     public void TogglePlayerDialogue(bool state)
     {
         isOnDialogue = state;
