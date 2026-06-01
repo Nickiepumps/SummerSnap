@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public RuntimeAnimatorController controllerWithPowder;
 
     public bool canMove = true;
+    public bool isOnDialogue {  get; private set; } = false;
 
     void Awake()
     {
@@ -90,7 +91,10 @@ public class PlayerController : MonoBehaviour
 
     void MovePlayer()
     {
-        transform.Translate(movement.x * moveSpeed * Time.deltaTime, 0, 0);
+        if(isOnDialogue == false)
+        {
+            transform.Translate(movement.x * moveSpeed * Time.deltaTime, 0, 0);
+        }
     }
 
     public void SetPowderOnFace(bool value)
@@ -111,6 +115,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void TogglePlayerDialogue(bool state)
+    {
+        isOnDialogue = state;
+        canMove = !state;
+    }
     void OnDisable()
     {
         if (GameManager.Instance != null)

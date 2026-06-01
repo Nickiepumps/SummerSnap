@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public PlayerData playerData;
 
     private GameObject player;
+    private PlayerController playerController;
     private GameObject ryu;
     private bool currentDialogHasPowder = false;
 
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
             playerData = new PlayerData();
 
             player = Instantiate(playerPrefab);
+            playerController = player.GetComponent<PlayerController>();
             DontDestroyOnLoad(player);
 
             ryu = Instantiate(ryuPrefab);
@@ -67,6 +69,7 @@ public class GameManager : MonoBehaviour
     // ✅ Player
     // -------------------------
     public GameObject GetPlayer() => player;
+    public PlayerController GetPlayerController() => playerController;
 
     // -------------------------
     // ✅ Ryu

@@ -101,6 +101,12 @@ public class DialogManager : MonoBehaviour
 
     public System.Action onDialogEnd;
 
+    private PlayerController playerController;
+
+    private void Start()
+    {
+        Initialize();
+    }
     void Update()
     {
         if (!dialogPanel.activeSelf) return;
@@ -122,6 +128,10 @@ public class DialogManager : MonoBehaviour
             }
         }
     }
+    private void Initialize()
+    {
+        playerController = GameManager.Instance.GetPlayerController();
+    }
 
     public void SetDialog(DialogData data)
     {
@@ -136,6 +146,7 @@ public class DialogManager : MonoBehaviour
             return;
         }
 
+        playerController.TogglePlayerDialogue(true);
         currentLineIndex = 0;
         if (dialogCanvas != null) dialogCanvas.gameObject.SetActive(true);
         if (dialogPanel != null) dialogPanel.SetActive(true);
@@ -295,6 +306,7 @@ public class DialogManager : MonoBehaviour
 
     void EndDialog()
     {
+        playerController.TogglePlayerDialogue(false);
         dialogPanel.SetActive(false);
         if (dialogCanvas != null) dialogCanvas.gameObject.SetActive(false);
 

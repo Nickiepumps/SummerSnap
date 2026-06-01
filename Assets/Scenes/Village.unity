@@ -1675,7 +1675,7 @@ GameObject:
   - component: {fileID: 129950649}
   - component: {fileID: 129950650}
   m_Layer: 0
-  m_Name: SpawnExitsVillage
+  m_Name: Spawn - Market
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4059,7 +4059,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &425361564
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17338,7 +17338,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 62.319687, y: 6.1954975}
+  m_Offset: {x: 59.850815, y: 6.1954975}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -17348,7 +17348,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 191.35092, y: 11.7089615}
+  m_Size: {x: 186.41318, y: 11.7089615}
   m_EdgeRadius: 0
 --- !u!1001 &1729099670
 PrefabInstance:
@@ -18774,7 +18774,7 @@ GameObject:
   - component: {fileID: 1851508958}
   - component: {fileID: 1851508959}
   m_Layer: 0
-  m_Name: SceneTrigger
+  m_Name: SceneTransition - Market
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

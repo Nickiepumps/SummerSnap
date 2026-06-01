@@ -3815,11 +3815,11 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 36.157913, y: 3.4017735}
+  m_Offset: {x: 33.604057, y: 3.4017735}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -3829,7 +3829,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 191.68259, y: 11.67346}
+  m_Size: {x: 186.57489, y: 11.67346}
   m_EdgeRadius: 0
 --- !u!1001 &762186748
 PrefabInstance:
@@ -14004,7 +14004,7 @@ GameObject:
   - component: {fileID: 360881885900353983}
   - component: {fileID: 6560856344849146763}
   m_Layer: 0
-  m_Name: sceneTrigger (1)
+  m_Name: SceneTransition - Market
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14544,7 +14544,7 @@ GameObject:
   - component: {fileID: 8772569904873925628}
   - component: {fileID: 5310206040630587077}
   m_Layer: 0
-  m_Name: SpawnFromWat
+  m_Name: Spawn - Market
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

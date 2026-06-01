@@ -5,6 +5,8 @@ using System.Collections;
 
 public class NPCDialogManager : MonoBehaviour
 {
+    private PlayerController playerController;
+
     [Header("UI References")]
     public GameObject dialogPanel;
     public TMP_Text dialogText;
@@ -24,7 +26,10 @@ public class NPCDialogManager : MonoBehaviour
         if (dialogPanel != null)
             dialogPanel.SetActive(false);
     }
-
+    private void Start()
+    {
+        Initialize();
+    }
     void Update()
     {
         if (dialogPanel.activeSelf && !waitingForChoice && canInput)
@@ -36,12 +41,15 @@ public class NPCDialogManager : MonoBehaviour
             }
         }
     }
-
-
+    private void Initialize()
+    {
+        playerController = GameManager.Instance.GetPlayerController();
+    }
     public void StartDialog(DialogueLine[] lines)
     {
         if (lines == null || lines.Length == 0) return;
 
+        playerController.TogglePlayerDialogue(true);
         EndDialog(); // ปิดของเก่าก่อน
 
         currentLines = lines;
@@ -64,6 +72,7 @@ public class NPCDialogManager : MonoBehaviour
         if (currentLines == null || currentIndex < 0 || currentIndex >= currentLines.Length)
         {
             EndDialog();
+            playerController.TogglePlayerDialogue(false);
             return;
         }
 
@@ -129,6 +138,7 @@ public class NPCDialogManager : MonoBehaviour
         if (currentIndex >= currentLines.Length)
         {
             EndDialog();
+            playerController.TogglePlayerDialogue(false);
             return;
         }
 
@@ -154,6 +164,7 @@ public class NPCDialogManager : MonoBehaviour
         if (currentIndex >= currentLines.Length)
         {
             EndDialog();
+            playerController.TogglePlayerDialogue(false);
             return;
         }
 

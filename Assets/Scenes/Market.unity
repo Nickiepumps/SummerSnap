@@ -1666,9 +1666,9 @@ GameObject:
   - component: {fileID: 533361289}
   - component: {fileID: 533361288}
   m_Layer: 0
-  m_Name: SpawnFromVillage
+  m_Name: Spawn - Village
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1694,7 +1694,7 @@ Transform:
   m_GameObject: {fileID: 533361287}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.45, y: -2.39, z: 0.47070533}
+  m_LocalPosition: {x: -6.05, y: -2.39, z: 0.47070533}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2574,7 +2574,7 @@ GameObject:
   - component: {fileID: 843378456}
   - component: {fileID: 843378455}
   m_Layer: 0
-  m_Name: sceneTrigger
+  m_Name: SceneTransition - Village
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5825,11 +5825,11 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 82.17284, y: -0.64908504}
+  m_Offset: {x: 79.75301, y: -0.64908504}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -5839,7 +5839,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 191.46237, y: 11.576756}
+  m_Size: {x: 186.62273, y: 11.576756}
   m_EdgeRadius: 0
 --- !u!1 &1545793650
 GameObject:
@@ -7933,7 +7933,7 @@ GameObject:
   - component: {fileID: 5154347776300444635}
   - component: {fileID: 1840054433713043951}
   m_Layer: 0
-  m_Name: sceneTrigger (1)
+  m_Name: SceneTransition - Temple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8183,9 +8183,9 @@ GameObject:
   - component: {fileID: 3511434673266188133}
   - component: {fileID: 50901478703159900}
   m_Layer: 0
-  m_Name: SpawnFromWat
+  m_Name: Spawn - Temple
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

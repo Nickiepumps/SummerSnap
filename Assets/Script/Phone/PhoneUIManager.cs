@@ -61,10 +61,13 @@ public class PhoneUIManager : MonoBehaviour
 
     public void TogglePhone()
     {
+        PlayerController player = GameManager.Instance.GetPlayerController();
+
+        if (player.isOnDialogue == true) return;
+
         isOpen = !isOpen;
         if (phoneUI != null) phoneUI.SetActive(isOpen);
 
-        var player = Object.FindFirstObjectByType<PlayerController>();
         if (player != null)
         {
             player.canMove = !isOpen;
