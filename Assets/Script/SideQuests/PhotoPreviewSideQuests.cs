@@ -4,8 +4,6 @@ using System.Collections;
 
 public class PhotoPreviewSideQuests : MonoBehaviour
 {
-    public static PhotoPreviewSideQuests Instance;
-
     public GameObject previewCanvas;
     public Image previewImage;
     public Image frameImage;
@@ -20,10 +18,8 @@ public class PhotoPreviewSideQuests : MonoBehaviour
     private Sprite currentSprite;
     private string currentQuestId;
 
-    void Awake()
+    private void Start()
     {
-        Instance = this;
-
         var canvasComp = previewCanvas.GetComponent<Canvas>();
         if (canvasComp != null)
             canvasComp.sortingOrder = 100;

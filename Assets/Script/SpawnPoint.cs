@@ -4,7 +4,7 @@ using Unity.Cinemachine;
 public class SpawnPoint : MonoBehaviour
 {
     public string spawnPointName;
-
+    [SerializeField] private CamSetup camSetup;
     void Start()
     {
         StartCoroutine(SetCharacterPositionNextFrame());
@@ -23,8 +23,10 @@ public class SpawnPoint : MonoBehaviour
         {
             player.transform.position = PlayerPositionManager.RestorePlayerPosition();
 
-            var cam = Object.FindFirstObjectByType<CinemachineCamera>();
-            if (cam != null) cam.Follow = player.transform;
+            camSetup.Initialize(player.transform);
+
+            //var cam = Object.FindFirstObjectByType<CinemachineCamera>();
+            //if (cam != null) cam.Follow = player.transform;
 
             // วาง Ryu ใกล้ Player
             ryu.transform.position = player.transform.position + new Vector3(-2f, 0, 0);
@@ -37,11 +39,17 @@ public class SpawnPoint : MonoBehaviour
         {
             player.transform.position = transform.position;
 
-            var cam = Object.FindFirstObjectByType<CinemachineCamera>();
-            if (cam != null) cam.Follow = player.transform;
+            camSetup.Initialize(player.transform);
+
+            //var cam = Object.FindFirstObjectByType<CinemachineCamera>();
+            //if (cam != null) cam.Follow = player.transform;
 
             // วาง Ryu ใกล้ Player
             ryu.transform.position = transform.position + new Vector3(-2f, 0, 0);
+        }
+        else
+        {
+            camSetup.Initialize(player.transform);
         }
     }
 }

@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PhotoCaptureManager : MonoBehaviour
 {
+    [SerializeField] private PhotoResultUI photoResultUI;
+
     public int baseScore = 12;
 
     public AudioClip shutterSound;
@@ -64,17 +66,7 @@ public class PhotoCaptureManager : MonoBehaviour
 
         Sprite photoSprite = Sprite.Create(screenTex, new Rect(0, 0, screenTex.width, screenTex.height), new Vector2(0.5f, 0.5f));
 
-        // ✅ บันทึกลง MainQuestPhotoStorage
-        if (MainQuestPhotoStorage.Instance != null)
-        {
-            MainQuestPhotoStorage.Instance.AddPhoto(photoSprite);
-        }
-
-        // ✅ เพิ่มเข้าหน้า Album_work เท่านั้น
-        if (PhoneAlbumUI_Work.Instance != null)
-        {
-            PhoneAlbumUI_Work.Instance.AddPhoto(photoSprite);
-        }
+        photoResultUI.AddPhoto(photoSprite);
 
         Time.timeScale = 0f;
 

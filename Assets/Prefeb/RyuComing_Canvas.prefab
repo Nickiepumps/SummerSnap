@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 2681807257384185687}
   - component: {fileID: 4120942256533991423}
   m_Layer: 5
-  m_Name: warningToCallRyu_Canvas (1)
+  m_Name: RyuComing_Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

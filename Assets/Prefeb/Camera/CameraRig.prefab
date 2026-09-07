@@ -41,7 +41,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1087185251592823296}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
   m_Name: 
@@ -91,11 +91,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineFollow
   TrackerSettings:
     BindingMode: 4
-    PositionDamping: {x: 1, y: 1, z: 1}
+    PositionDamping: {x: 0.7, y: 0, z: 0}
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
-  FollowOffset: {x: 1.46, y: 2.26, z: -10}
+  FollowOffset: {x: 1.46, y: 2.26, z: -20}
 --- !u!114 &8056511336524105259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,6 +125,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1374578050816867471}
+  - component: {fileID: 7757641285399509564}
   m_Layer: 0
   m_Name: CameraRig
   m_TagString: Untagged
@@ -149,6 +150,21 @@ Transform:
   - {fileID: 7346972213223816459}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7757641285399509564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5917506008105068749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb86130e79d7a6343abb82001aae2a7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CamSetup
+  cinemachineCam: {fileID: 8349100265693979117}
+  cinemachineCamFollow: {fileID: 175806556594373825}
+  cam: {fileID: 7324851632071833741}
 --- !u!1 &8748980428397298040
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,7 +181,7 @@ GameObject:
   - component: {fileID: 653386472963211448}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,7 +195,7 @@ Transform:
   m_GameObject: {fileID: 8748980428397298040}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -59.628254, y: -4.601765, z: 0.4688387}
+  m_LocalPosition: {x: 0, y: 0, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

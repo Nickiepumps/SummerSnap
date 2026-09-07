@@ -126,4 +126,4 @@ MonoBehaviour:
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
-  FollowOffset: {x: 1.46, y: 1.13, z: -10}
+  FollowOffset: {x: 1.46, y: 1.13, z: -20}

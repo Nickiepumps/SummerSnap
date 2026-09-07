@@ -17,6 +17,12 @@ public class PhotoResultUI : MonoBehaviour
     public GameObject resultPanelComplete;   // ชี้ไปที่ "ResultPanelComplete" (Panel แม่)
     public GameObject popupPanel;            // ชี้ไปที่ "Complete" (Panel ที่จะ Animate)
 
+    [Header("Result Panel Buttons")]
+    [SerializeField] private Button buttonCompleteResultOk;
+    [SerializeField] private Button buttonCompleteResultTryAgain;
+    [SerializeField] private Button buttonFailedResultOk;
+    [SerializeField] private Button buttonFailedResultTryAgain;
+
     [Header("Scoring")]
     public int mainQuestLevel = 1;
 
@@ -56,8 +62,15 @@ public class PhotoResultUI : MonoBehaviour
     private RectTransform popupRect;
     private Vector3[] starOriginalScales;
 
+    private Sprite photoSprite;
     void Start()
     {
+        // Result panel buttons initialize
+        buttonCompleteResultOk.onClick.AddListener(OnOK);
+        buttonFailedResultOk.onClick.AddListener(OnOK);
+        buttonCompleteResultTryAgain.onClick.AddListener(OnPlayAgain);
+        buttonFailedResultTryAgain.onClick.AddListener(OnPlayAgain);
+
         // ปิดทั้ง Panel แม่ก่อน
         resultPanelComplete.SetActive(false);
 
@@ -179,6 +192,8 @@ public class PhotoResultUI : MonoBehaviour
     {
         Time.timeScale = 1f;
 
+        ClearPhoto();
+
         if (AudioManager.Instance != null)
         {
             // ✅ ให้เล่น QuestBGM อีกครั้ง หลังจากรีโหลด
@@ -192,10 +207,26 @@ public class PhotoResultUI : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-
+    public void AddPhoto(Sprite photo)
+    {
+        photoSprite = photo;
+    }
+    private void ClearPhoto()
+    {
+        photoSprite = null;
+    }
     public void OnOK()
     {
         Time.timeScale = 1f;
+
+        if (PhoneAlbumUI_Work.Instance != null)
+        {
+            PhoneAlbumUI_Work.Instance.AddPhoto(photoSprite);
+        }
+        if (MainQuestPhotoStorage.Instance != null)
+        {
+            MainQuestPhotoStorage.Instance.AddPhoto(photoSprite);
+        }
 
         if (AudioManager.Instance != null)
         {
@@ -214,10 +245,4 @@ public class PhotoResultUI : MonoBehaviour
         GameManager.Instance.TogglePhotoshootStatus(false);
         SceneManager.LoadScene(nextSceneName);
     }
-
-
-
-
-
-
 }

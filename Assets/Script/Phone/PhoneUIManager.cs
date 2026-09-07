@@ -38,10 +38,6 @@ public class PhoneUIManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void Start()
-    {
-        InitializeVirtualCamera();
-    }
 
     private void Update()
     {
@@ -50,9 +46,11 @@ public class PhoneUIManager : MonoBehaviour
             TogglePhone();
         }
     }
-    private void InitializeVirtualCamera()
+    public void InitializeVirtualCamera()
     {
-        if(vcamPhone != null && gameManager != null)
+        CinemachineCamera cinemachineCam = GameObject.Find("CinemachineCamera").GetComponent<CinemachineCamera>();
+        vcamNormal = cinemachineCam;
+        if (vcamPhone != null && gameManager != null)
         {
             GameObject player = gameManager.GetPlayer();
             vcamPhone.Target.TrackingTarget = player.transform;

@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class PhotoTimer : MonoBehaviour
 {
     public float totalTime = 15f; // เวลาทั้งหมดในแต่ละ Stage
     private float remainingTime;
+    [SerializeField] private PhotoCaptureManager photoCaptureManager;
 
     public Slider timeSlider; // UI slider แสดงเวลา
     public Image fillImage; // Image ของ Fill Area เพื่อนำมาเปลี่ยนสี
@@ -61,12 +61,10 @@ public class PhotoTimer : MonoBehaviour
 
         if (gameOverPanel != null) gameOverPanel.SetActive(true);
         
-
         // แจ้งให้ PhotoCaptureManager รู้ว่าเกมจบแล้ว
-        var captureManager = FindObjectOfType<PhotoCaptureManager>();
-        if (captureManager != null)
+        if (photoCaptureManager != null)
         {
-            captureManager.SetGameOver();
+            photoCaptureManager.SetGameOver();
         }
     }
 

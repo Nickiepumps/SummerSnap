@@ -2,6 +2,8 @@
 
 public class PhotoQuestObject : MonoBehaviour
 {
+    [SerializeField] private PhotoPreviewSideQuests photoPreviewSideQuests;
+
     [Header("ตั้ง ID ให้แต่ละ Object ไม่ซ้ำกัน")]
     public string questId;
     public Sprite photoSprite;
@@ -11,24 +13,22 @@ public class PhotoQuestObject : MonoBehaviour
 
     void Start()
     {
-        // เช็คว่าถ่ายไปแล้วใน GameManager → ถ่ายไม่ได้อีก
         if (GameManager.Instance != null && GameManager.Instance.HasTaken(questId))
         {
             isTaken = true;
         }
     }
 
-    void OnMouseDown()
+    private void OnMouseDown()
     {
-        // ถ่ายไปแล้วจริง ๆ ห้ามกด
         if (GameManager.Instance != null && GameManager.Instance.HasTaken(questId))
         {
             Debug.Log($"[PhotoQuestObject] {questId} เคยถ่ายไปแล้ว ห้ามถ่ายซ้ำ");
             return;
         }
 
-        if (isTaken) return;   // ถ่ายเสร็จแล้วห้ามกด
-        if (clicked) return;   // ป้องกัน spam กดรัว ๆ ระหว่าง popup ยังไม่ปิด
+        if (isTaken) return;
+        if (clicked) return;
 
         clicked = true;
 
@@ -39,9 +39,9 @@ public class PhotoQuestObject : MonoBehaviour
             return;
         }
 
-        if (PhotoPreviewSideQuests.Instance != null)
+        if (photoPreviewSideQuests != null)
         {
-            PhotoPreviewSideQuests.Instance.ShowButtons(photoSprite, questId);
+            photoPreviewSideQuests.ShowButtons(photoSprite, questId);
         }
     }
 

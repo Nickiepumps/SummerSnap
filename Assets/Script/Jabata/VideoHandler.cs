@@ -2,12 +2,14 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 using System.Collections;
+using UnityEngine.UI;
 
-public class VideoEndHandler : MonoBehaviour
+public class VideoHandler : MonoBehaviour
 {
+    [SerializeField] private Button buttonSkip;
     public string nextSceneName = "MainMenu";
     private VideoPlayer videoPlayer;
-
+    
     void Start()
     {
         videoPlayer = GetComponent<VideoPlayer>();
@@ -15,11 +17,17 @@ public class VideoEndHandler : MonoBehaviour
         {
             videoPlayer.loopPointReached += OnVideoFinished;
         }
+        buttonSkip.onClick.AddListener(SkipCutscene);
     }
 
     private void OnVideoFinished(VideoPlayer vp)
     {
         StartCoroutine(LoadNextScene());
+    }
+    private void SkipCutscene()
+    {
+        videoPlayer.Stop();
+        SceneManager.LoadScene(nextSceneName);
     }
 
     private IEnumerator LoadNextScene()
