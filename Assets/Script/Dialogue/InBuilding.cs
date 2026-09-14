@@ -12,16 +12,18 @@ public class InBuilding : MonoBehaviour
     public bool usePowder = false;
 
     [Header("UI")]
-    public GameObject confirmPanel;   // Panel ที่มีปุ่ม เข้า / ยกเลิก
+    public GameObject confirmPanel;
     public Button enterButton;
     public Button cancelButton;
 
-    private bool clicked = false;     // ป้องกันกดรัว
-    private bool isEntered = false;   // เข้าไปแล้ว (ครั้งเดียว)
+    private bool clicked = false;
+    private bool isEntered = false;
 
-    void Start()
+    private PlayerController playerController;
+    private void Start()
     {
-        // ถ้าเคยเข้าแล้วใน GameManager → ปิดการทำงาน
+        playerController = GameManager.Instance.GetPlayerController();
+
         if (GameManager.Instance != null && GameManager.Instance.HasTriggeredDialog(buildingId))
         {
             isEntered = true;
@@ -36,27 +38,23 @@ public class InBuilding : MonoBehaviour
         if (cancelButton != null)
             cancelButton.onClick.AddListener(OnCancel);
     }
-
-    void OnMouseDown()
+    private void OnMouseDown()
     {
-        // ถ้าเข้าไปแล้ว → ห้ามกดซ้ำ
-        if (GameManager.Instance != null && GameManager.Instance.HasTriggeredDialog(buildingId))
-        {
-            Debug.Log($"[InBuilding] {buildingId} เคยเข้าไปแล้ว ห้ามซ้ำ");
-            return;
-        }
-
-        if (isEntered) return;   // กันซ้ำ
-        if (clicked) return;     // ป้องกันกดรัว ๆ ระหว่าง popup ยังเปิดอยู่
+        if (playerController.canMove == false || playerController.isOnDialogue == true || playerController.isOnSideQuest == true) return;
+        if (GameManager.Instance != null && GameManager.Instance.HasTriggeredDialog(buildingId)) return;
+        if (isEntered) return;
+        if (clicked) return;
 
         clicked = true;
-
-        // โชว์ UI ปุ่ม
+        
         if (confirmPanel != null)
+        {
             confirmPanel.SetActive(true);
+            playerController.canMove = false;
+            playerController.isOnSideQuest = true;
+        }
     }
-
-    void OnEnter()
+    private void OnEnter()
     {
         if (dialogManager != null && dialogData != null)
         {
@@ -68,22 +66,26 @@ public class InBuilding : MonoBehaviour
                 GameManager.Instance.SetCurrentDialogPowdered(true);
 
             GameManager.Instance.MarkDialogTriggered(buildingId);
-            isEntered = true;   // บันทึกว่าเข้าไปแล้ว
+            isEntered = true;
         }
 
         if (confirmPanel != null)
             confirmPanel.SetActive(false);
 
-        clicked = true; // กันกดซ้ำหลังจากเข้าแล้ว
+        clicked = true;
     }
-
-    void OnCancel()
+    private void OnCancel()
     {
-        if (confirmPanel != null)
-            confirmPanel.SetActive(false);
+        playerController.canMove = true;
+        playerController.isOnSideQuest = false;
 
-        // reset ให้กดใหม่ได้ในครั้งต่อไป
+        if (confirmPanel != null)
+        {
+            confirmPanel.SetActive(false);
+        }
         if (!isEntered)
+        {
             clicked = false;
+        }
     }
 }

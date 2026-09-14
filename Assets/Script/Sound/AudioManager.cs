@@ -21,6 +21,9 @@ public class AudioManager : MonoBehaviour
 
     private enum BGMMode { Scene, User, Quest }
     private BGMMode currentMode = BGMMode.Scene;
+    private string loadingToGameplaySceneName = "LoadingToGameplay";
+    private string introSceneName = "IntroStartGame";
+    private string gameplayToLoadingSceneName = "LoadingToMainmenu";
 
     public float CurrentBGMVolume { get; private set; } = 0.5f;
     public float CurrentSFXVolume { get; private set; } = 0.5f;
@@ -32,7 +35,7 @@ public class AudioManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            LoadVolume(); // volume เริ่มต้น 0.5f หรือค่าที่ player ตั้งไว้
+            LoadVolume();
             bgmSource.volume = CurrentBGMVolume;
             sfxSource.volume = CurrentSFXVolume;
 
@@ -50,24 +53,21 @@ public class AudioManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // ❌ อย่า override ถ้ามี userBGM
-        if (IsUserBGMActive())
+        if (scene.name == introSceneName || scene.name == loadingToGameplaySceneName || scene.name == gameplayToLoadingSceneName)
+        {
+            StartFadeBGM(null, 0.5f);
             return;
+        }
 
-        // ❌ อย่า override ถ้าเพิ่งออกจาก Quest แล้ว restore กลับ
-        if (currentMode == BGMMode.Quest)
-            return;
+        if (IsUserBGMActive()) return;
 
-        // ✅ ใช้ sceneBGM หรือ default ถ้าไม่มี userBGM
+        if (currentMode == BGMMode.Quest) return;
+
         if (FindObjectOfType<SceneBGM>() == null && defaultBGM != null)
         {
             PlaySceneBGM(defaultBGM);
         }
     }
-
-    // -------------------------
-    // Scene BGM
-    // -------------------------
     public void PlaySceneBGM(AudioClip clip)
     {
         if (clip == null) return;
@@ -75,10 +75,6 @@ public class AudioManager : MonoBehaviour
         currentMode = BGMMode.Scene;
         StartFadeBGM(clip, 0.5f);
     }
-
-    // -------------------------
-    // User BGM
-    // -------------------------
     public void PlayUserBGM(AudioClip clip)
     {
         if (clip == null) return;
@@ -86,10 +82,6 @@ public class AudioManager : MonoBehaviour
         currentMode = BGMMode.User;
         StartFadeBGM(clip, 0.5f);
     }
-
-    // -------------------------
-    // Quest BGM (ทันที)
-    // -------------------------
     public void PlayTemporaryBGMImmediate(AudioClip clip)
     {
         if (clip == null) return;
@@ -102,10 +94,6 @@ public class AudioManager : MonoBehaviour
         bgmSource.volume = CurrentBGMVolume;
         bgmSource.Play();
     }
-
-    // -------------------------
-    // Restore BGM หลังจบ Quest
-    // -------------------------
     public void RestoreLastBGM()
     {
         AudioClip restoreClip = null;
@@ -129,10 +117,6 @@ public class AudioManager : MonoBehaviour
         if (restoreClip != null)
             StartFadeBGM(restoreClip, 0.5f);
     }
-
-    // -------------------------
-    // SFX
-    // -------------------------
     public void PlaySFX(AudioClip clip)
     {
         if (clip != null && sfxSource != null)
@@ -143,10 +127,6 @@ public class AudioManager : MonoBehaviour
     {
         return currentMode == BGMMode.User && userClip != null;
     }
-
-    // -------------------------
-    // Volume
-    // -------------------------
     public void SetBGMVolume(float volume)
     {
         CurrentBGMVolume = volume;
@@ -154,7 +134,6 @@ public class AudioManager : MonoBehaviour
             bgmSource.volume = volume;
         PlayerPrefs.SetFloat("BGMVolume", volume);
     }
-
     public void SetSFXVolume(float volume)
     {
         CurrentSFXVolume = volume;
@@ -162,7 +141,6 @@ public class AudioManager : MonoBehaviour
             sfxSource.volume = volume;
         PlayerPrefs.SetFloat("SFXVolume", volume);
     }
-
     public void LoadVolume()
     {
         float bgmVol = PlayerPrefs.GetFloat("BGMVolume", 0.5f);
@@ -170,10 +148,6 @@ public class AudioManager : MonoBehaviour
         SetBGMVolume(bgmVol);
         SetSFXVolume(sfxVol);
     }
-
-    // -------------------------
-    // Fade System
-    // -------------------------
     private void StartFadeBGM(AudioClip newClip, float fadeTime)
     {
         if (fadeCoroutine != null)
@@ -181,7 +155,6 @@ public class AudioManager : MonoBehaviour
 
         fadeCoroutine = StartCoroutine(FadeBGM(newClip, fadeTime));
     }
-
     private IEnumerator FadeBGM(AudioClip newClip, float fadeTime)
     {
         if (bgmSource.isPlaying)

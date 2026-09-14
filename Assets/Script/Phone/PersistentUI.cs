@@ -2,18 +2,23 @@
 
 public class PersistentUI : MonoBehaviour
 {
-    private static PersistentUI instance;
+    public static PersistentUI instance;
+    [SerializeField] private PhoneUIManager phoneUIManager;
 
     void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);   // ✅ ทั้งก้อน PersistentUI (รวม Canvas_PHONE, PhoneAlbumUI) จะอยู่ตลอดเกม
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+    public void TogglePhoneUI(bool state)
+    {
+        phoneUIManager.enabled = state;
     }
 }

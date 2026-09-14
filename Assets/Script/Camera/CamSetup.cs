@@ -9,6 +9,7 @@ public class CamSetup : MonoBehaviour
     private Vector3 camOffset;
     public void Initialize(Transform player)
     {
+        PersistentUI.instance.TogglePhoneUI(true);
         PhoneUIManager.Instance.InitializeVirtualCamera();
         cinemachineCam.enabled = false;
         Vector3 playerPos = player.transform.position;

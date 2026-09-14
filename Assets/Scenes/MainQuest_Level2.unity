@@ -290,6 +290,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &541135514 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4690578373531292177, guid: a33dc783762e7e44e9f54c360de80517, type: 3}
+  m_PrefabInstance: {fileID: 1570395010}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &547085573
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -333,7 +338,7 @@ PrefabInstance:
     - target: {fileID: 5379049908244764466, guid: b2c9283a957befc4cae81804bd602cdc, type: 3}
       propertyPath: cameraFrameUI
       value: 
-      objectReference: {fileID: 1570395014}
+      objectReference: {fileID: 541135514}
     - target: {fileID: 7191280861657394139, guid: b2c9283a957befc4cae81804bd602cdc, type: 3}
       propertyPath: fillImage
       value: 
@@ -1653,6 +1658,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1524203535808439748, guid: a33dc783762e7e44e9f54c360de80517, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1764624823146197161, guid: a33dc783762e7e44e9f54c360de80517, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1663,7 +1672,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5507411043125250143, guid: a33dc783762e7e44e9f54c360de80517, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6164145059836703176, guid: a33dc783762e7e44e9f54c360de80517, type: 3}
       propertyPath: m_Pivot.x
@@ -1771,11 +1780,6 @@ RectTransform:
 --- !u!1 &1570395013 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7139391817754967083, guid: a33dc783762e7e44e9f54c360de80517, type: 3}
-  m_PrefabInstance: {fileID: 1570395010}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1570395014 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1524203535808439748, guid: a33dc783762e7e44e9f54c360de80517, type: 3}
   m_PrefabInstance: {fileID: 1570395010}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1570395015 stripped

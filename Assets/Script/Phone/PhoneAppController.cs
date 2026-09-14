@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class PhoneAppController : MonoBehaviour
 {
@@ -35,8 +36,9 @@ public class PhoneAppController : MonoBehaviour
     {
         if (ryuController != null)
         {
+            PersistentUI.instance.TogglePhoneUI(false);
+
             ryuController.CallRyu();
-            Debug.Log("📱 Phone App: Called Ryu back!");
 
             if (callingUI != null)
                 callingUI.SetActive(true);
@@ -47,7 +49,7 @@ public class PhoneAppController : MonoBehaviour
         }
     }
 
-    private System.Collections.IEnumerator PhoneRingLoop()
+    private IEnumerator PhoneRingLoop()
     {
         while (ryuController != null && ryuController.IsCalling())
         {
@@ -57,10 +59,10 @@ public class PhoneAppController : MonoBehaviour
             yield return new WaitForSeconds(phoneRingClip.length + phoneRingLoopDelay);
         }
     }
-
-    // ฟังก์ชันนี้ทำเฉพาะ UI ไม่เล่นเสียง
     private void HandleRyuArrivedUIOnly()
     {
+        PersistentUI.instance.TogglePhoneUI(true);
+
         if (phoneRingCoroutine != null)
         {
             StopCoroutine(phoneRingCoroutine);

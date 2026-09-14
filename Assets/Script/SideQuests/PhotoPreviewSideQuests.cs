@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-
 public class PhotoPreviewSideQuests : MonoBehaviour
 {
+    private PlayerController playerController;
+
     public GameObject previewCanvas;
     public Image previewImage;
     public Image frameImage;
@@ -17,10 +18,12 @@ public class PhotoPreviewSideQuests : MonoBehaviour
 
     private Sprite currentSprite;
     private string currentQuestId;
+    private bool isSideQuestActive = false;
 
     private void Start()
     {
-        var canvasComp = previewCanvas.GetComponent<Canvas>();
+        playerController = GameManager.Instance.GetPlayerController();
+        Canvas canvasComp = previewCanvas.GetComponent<Canvas>();
         if (canvasComp != null)
             canvasComp.sortingOrder = 100;
 
@@ -34,16 +37,24 @@ public class PhotoPreviewSideQuests : MonoBehaviour
         if (takeButton != null) takeButton.onClick.AddListener(OnTakePhoto);
         if (cancelButton != null) cancelButton.onClick.AddListener(OnCancel);
     }
-
-    public void ShowButtons(Sprite sprite, string questId)
+    public bool GetSideQuestActiveStatus() => isSideQuestActive;
+    public void ShowButtons(Sprite sprite, string questId, PhotoQuestObject photoQuestObject)
     {
-        if (sprite == null) return;
-
-        if (GameManager.Instance != null && GameManager.Instance.HasTaken(questId))
+        if (playerController.canMove == false || playerController.isOnDialogue == true || playerController.isOnSideQuest == true)
         {
-            Debug.Log($"[PhotoPreview] {questId} เคยถ่ายแล้ว");
+            photoQuestObject.clicked = false;
             return;
         }
+
+        if (sprite == null) return;
+
+        if (GameManager.Instance != null && GameManager.Instance.HasTaken(questId)) return;
+
+        frameImage.sprite = photoQuestObject.photoFrameSprite;
+
+        playerController.canMove = false;
+        playerController.isOnSideQuest = true;
+        isSideQuestActive = true;
 
         currentSprite = sprite;
         currentQuestId = questId;
@@ -56,7 +67,6 @@ public class PhotoPreviewSideQuests : MonoBehaviour
         previewImage.gameObject.SetActive(false);
         if (frameImage != null) frameImage.gameObject.SetActive(false);
     }
-
     public void OnTakePhoto()
     {
         if (currentSprite == null) return;
@@ -76,7 +86,6 @@ public class PhotoPreviewSideQuests : MonoBehaviour
 
         StartCoroutine(AnimatePreview());
     }
-
     private IEnumerator AnimatePreview()
     {
         float elapsed = 0f;
@@ -103,9 +112,8 @@ public class PhotoPreviewSideQuests : MonoBehaviour
             yield return null;
         }
 
-        ClosePreview(true); // ✅ กรณีถ่ายรูปจริง
+        ClosePreview(true);
     }
-
     public void OnCancel()
     {
         if (!string.IsNullOrEmpty(currentQuestId))
@@ -120,11 +128,11 @@ public class PhotoPreviewSideQuests : MonoBehaviour
                 }
             }
         }
-
-        ClosePreview(false); // ❌ กดยกเลิก = แค่ปิด UI
+        playerController.canMove = true;
+        playerController.isOnSideQuest = false;
+        isSideQuestActive = false;
+        ClosePreview(false);
     }
-
-
     private void ClosePreview(bool isPhotoTaken)
     {
         previewImage.gameObject.SetActive(false);
@@ -137,11 +145,11 @@ public class PhotoPreviewSideQuests : MonoBehaviour
         {
             if (currentSprite != null)
             {
-                // ✅ เก็บรูปลง SideQuest Storage
                 if (SideQuestPhotoStorage.Instance != null)
+                {
                     SideQuestPhotoStorage.Instance.AddPhoto(currentSprite);
+                }
             }
-
             if (!string.IsNullOrEmpty(currentQuestId))
             {
                 var objs = FindObjectsOfType<PhotoQuestObject>();
@@ -155,9 +163,10 @@ public class PhotoPreviewSideQuests : MonoBehaviour
                 }
             }
         }
-
+        isSideQuestActive = false;
+        playerController.canMove = true;
+        playerController.isOnSideQuest = false;
         currentSprite = null;
         currentQuestId = null;
     }
-
 }

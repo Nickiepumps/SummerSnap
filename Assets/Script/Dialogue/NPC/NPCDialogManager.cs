@@ -11,6 +11,7 @@ public class NPCDialogManager : MonoBehaviour
     public GameObject dialogPanel;
     public TMP_Text dialogText;
     public Button[] choiceButtons;
+    [SerializeField] private Image imageNextDialogue;
 
     [Header("Settings")]
     public float inputDelay = 0.2f;
@@ -92,6 +93,7 @@ public class NPCDialogManager : MonoBehaviour
     private void ShowChoices(DialogueLine line)
     {
         waitingForChoice = true;
+        imageNextDialogue.enabled = false;
 
         for (int i = 0; i < choiceButtons.Length; i++)
         {
@@ -149,6 +151,7 @@ public class NPCDialogManager : MonoBehaviour
     {
         if (currentLines == null) return;
 
+        imageNextDialogue.enabled = true;
         DialogueLine line = currentLines[currentIndex];
 
         if (line.nextLineIndices != null && index < line.nextLineIndices.Length)
@@ -185,14 +188,12 @@ public class NPCDialogManager : MonoBehaviour
         currentIndex = 0;
         waitingForChoice = false;
     }
-
     private IEnumerator InputCooldown()
     {
         canInput = false;
         yield return new WaitForSeconds(inputDelay);
         canInput = true;
     }
-
     private IEnumerator BlockInputShortly()
     {
         canInput = false;

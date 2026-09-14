@@ -12,9 +12,9 @@ public class EndingUIController : MonoBehaviour
     public DialogData relationshipEndingData;   // ข้อมูล Dialog สำหรับ Relationship Ending ❤️
 
     [Header("Scene Names")]
-    public string fakeLoadingScene = "FakeLoading";
+    public string fakeLoadingScene = "LoadingToMainmenu";
     public string homeScene = "Home";
-    public string goodEndingVideoScene = "GoodEndVideo";
+    public string goodEndingVideoScene = "GoodEndCutscene";
 
     private void Start()
     {
@@ -27,8 +27,6 @@ public class EndingUIController : MonoBehaviour
         if (endingUI != null)
             endingUI.SetActive(true);
     }
-
-    // ✅ ปุ่ม Cancel
     public void OnCancelPressed(TriggerDialogEnd trigger)
     {
         if (endingUI != null)
@@ -37,18 +35,15 @@ public class EndingUIController : MonoBehaviour
         if (trigger != null)
             trigger.ResetTrigger();
     }
-
-    // ✅ ปุ่ม OK
-    // ✅ ปุ่ม OK
     public void OnOkPressed()
     {
+        PersistentUI.instance.TogglePhoneUI(false);
+
         if (endingUI != null)
             endingUI.SetActive(false);
 
-        // เช็คคะแนนรวมทั้งหมด
         int totalScore = GameManager.Instance.GetTotalScore();
-
-        // คำนวณจำนวน dialog ดี
+        
         int goodDialogs = 0;
         if (GameManager.Instance.scoreDekpang >= 10) goodDialogs++;
         if (GameManager.Instance.scoreDog >= 10) goodDialogs++;
@@ -56,18 +51,16 @@ public class EndingUIController : MonoBehaviour
 
         Debug.Log($"[EndingUIController] ✅ กดปุ่ม OK → TotalScore={totalScore}, GoodDialogs={goodDialogs}");
 
-        // ---- เงื่อนไข Ending ----
+        
         if (GameManager.Instance.scoreLevel1 == 0 &&
             GameManager.Instance.scoreLevel2 == 0 &&
             GameManager.Instance.scoreLevel3 == 0 &&
             GameManager.Instance.scoreLevel4 == 0)
         {
-            Debug.Log("👉 เข้าสู่ Ending 1: Block");
             if (blockEndingUI != null)
             {
                 blockEndingUI.StartStory(() =>
                 {
-                    Debug.Log("👉 จบ Ending 1 → โหลด Scene: " + fakeLoadingScene);
                     SceneManager.LoadScene(fakeLoadingScene);
                 });
             }
@@ -75,12 +68,10 @@ public class EndingUIController : MonoBehaviour
         }
         else if (totalScore < 70)
         {
-            Debug.Log("👉 เข้าสู่ Ending 2: แค่คนรู้จัก");
             if (acquaintanceEndingUI != null)
             {
                 acquaintanceEndingUI.StartStory(() =>
                 {
-                    Debug.Log("👉 จบ Ending 2 → โหลด Scene: " + fakeLoadingScene);
                     SceneManager.LoadScene(fakeLoadingScene);
                 });
             }
@@ -88,12 +79,10 @@ public class EndingUIController : MonoBehaviour
         }
         else if ((totalScore >= 70 && totalScore < 120) || (totalScore >= 120 && goodDialogs < 2))
         {
-            Debug.Log("👉 เข้าสู่ Ending 3: เพื่อนรัก");
             if (bestFriendEndingUI != null)
             {
                 bestFriendEndingUI.StartStory(() =>
                 {
-                    Debug.Log("👉 จบ Ending 3 → โหลด Scene: " + fakeLoadingScene);
                     SceneManager.LoadScene(fakeLoadingScene);
                 });
             }
@@ -101,7 +90,6 @@ public class EndingUIController : MonoBehaviour
         }
         else if (totalScore >= 120 && goodDialogs >= 2)
         {
-            Debug.Log("👉 เข้าสู่ Ending 4: เลื่อนความสัมพันธ์ ❤️");
             if (dialogManager != null && relationshipEndingData != null)
             {
                 dialogManager.SetDialog(relationshipEndingData);
@@ -109,7 +97,6 @@ public class EndingUIController : MonoBehaviour
 
                 dialogManager.onDialogEnd = () =>
                 {
-                    Debug.Log("👉 จบ Ending 4 → โหลด Scene: " + goodEndingVideoScene);
                     SceneManager.LoadScene(goodEndingVideoScene);
                 };
             }

@@ -1,9 +1,10 @@
 ﻿using System.Collections;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-[System.Serializable]
+[Serializable]
 public class StarThreshold
 {
     public int scoreFor1Star = 20;
@@ -230,18 +231,15 @@ public class PhotoResultUI : MonoBehaviour
 
         if (AudioManager.Instance != null)
         {
-            // ออกจากเควส → restore เพลงหลัก
             AudioManager.Instance.RestoreLastBGM();
         }
 
-        // เซฟตำแหน่ง Player ปัจจุบัน ก่อนเปลี่ยน Scene
         GameObject player = GameManager.Instance != null ? GameManager.Instance.GetPlayer() : null;
         if (player != null)
         {
             PlayerPositionManager.SavePlayerPosition(player.transform.position);
         }
 
-        // โหลดกลับไป Scene หลัก
         GameManager.Instance.TogglePhotoshootStatus(false);
         SceneManager.LoadScene(nextSceneName);
     }

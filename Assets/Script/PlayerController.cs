@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     public bool canMove = true;
     public bool isOnDialogue {  get; private set; } = false;
+    public bool isOnSideQuest = false;
 
     void Awake()
     {
@@ -117,6 +118,7 @@ public class PlayerController : MonoBehaviour
     public void TogglePlayerDialogue(bool state)
     {
         isOnDialogue = state;
+        isOnSideQuest = state;
         canMove = !state;
     }
     void OnDisable()

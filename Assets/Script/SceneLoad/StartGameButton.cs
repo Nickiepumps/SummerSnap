@@ -4,7 +4,7 @@ using System.Collections;
 
 public class StartGameButton : MonoBehaviour
 {
-    public string loadingSceneName = "Loading"; // ไปหน้า Loading ก่อน
+    public string loadingSceneName = "LoadingToGameplay"; // ไปหน้า Loading ก่อน
     public AudioSource clickSound;
 
     public void StartGame()

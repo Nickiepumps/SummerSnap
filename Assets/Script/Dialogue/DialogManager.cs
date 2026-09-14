@@ -1,7 +1,9 @@
 ﻿using System.Collections;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Rendering;
 
 public class DialogManager : MonoBehaviour
 {
@@ -9,7 +11,7 @@ public class DialogManager : MonoBehaviour
     public enum Emotion { Normal, Angry, Confident, Sad, Smile, Surprised, SweatDrop }
     public enum ChoiceEffectType { None, Heart, Fail }
 
-    [System.Serializable]
+    [Serializable]
     public class CharacterSprites
     {
         public Sprite normal, normalGray;
@@ -35,7 +37,7 @@ public class DialogManager : MonoBehaviour
         }
     }
 
-    [System.Serializable]
+    [Serializable]
     public class DialogLine
     {
         public Speaker speaker;
@@ -44,6 +46,7 @@ public class DialogManager : MonoBehaviour
 
         [Header("Background Change")]
         public bool changeBackground;
+        public bool hideCharacters;
         public Sprite newBackground;
 
         [Header("Choices")]
@@ -54,7 +57,7 @@ public class DialogManager : MonoBehaviour
         public int nextLineIndex = -1; // -1 = ใช้ค่าต่อไปตามลำดับ
     }
 
-    [System.Serializable]
+    [Serializable]
     public class Choice
     {
         public string choiceText;
@@ -67,6 +70,11 @@ public class DialogManager : MonoBehaviour
         public Emotion emotion = Emotion.Normal;
     }
 
+    [SerializeField] private Volume blurVolume;
+
+    [SerializeField] private GameObject[] moveablenpcCharacterArr;
+    private SpriteRenderer[] mainCharacterSpriteRendererArr = new SpriteRenderer[2];
+
     [Header("Character Sprites (No Powder)")]
     public CharacterSprites leftCharacterSprites;
     public CharacterSprites rightCharacterSprites;
@@ -76,7 +84,7 @@ public class DialogManager : MonoBehaviour
     public CharacterSprites rightCharacterSpritesWithPowder;
 
     [Header("Dialog Data")]
-    public DialogLine[] lines;
+    public DialogLine[] dialogueLine;
 
     [Header("UI Components")]
     public Canvas dialogCanvas;
@@ -85,6 +93,7 @@ public class DialogManager : MonoBehaviour
     public Image leftCharacterImage;
     public Image rightCharacterImage;
     public Image backgroundImage;
+    [SerializeField] private Image imageNextDialogue;
 
     [Header("Choice UI")]
     public GameObject choicesPanel;
@@ -99,7 +108,7 @@ public class DialogManager : MonoBehaviour
     private bool isShowingChoiceResult = false;
     private int pendingNextLineIndex = -1;
 
-    public System.Action onDialogEnd;
+    public Action onDialogEnd;
 
     private PlayerController playerController;
 
@@ -131,19 +140,32 @@ public class DialogManager : MonoBehaviour
     private void Initialize()
     {
         playerController = GameManager.Instance.GetPlayerController();
+        mainCharacterSpriteRendererArr[0] = GameManager.Instance.GetPlayer().GetComponent<SpriteRenderer>();
+        mainCharacterSpriteRendererArr[1] = GameManager.Instance.GetRyu().GetComponent<SpriteRenderer>();
     }
 
     public void SetDialog(DialogData data)
     {
-        lines = data.lines;
+        dialogueLine = data.lines;
     }
 
     public void StartDialog()
     {
-        if (lines == null || lines.Length == 0)
+        if (dialogueLine == null || dialogueLine.Length == 0)
         {
             Debug.LogWarning("DialogManager: ไม่มีบทสนทนาที่จะเล่น");
             return;
+        }
+
+        blurVolume.weight = 1f;
+
+        foreach(SpriteRenderer sprite in mainCharacterSpriteRendererArr)
+        {
+            sprite.enabled = false;
+        }
+        foreach(GameObject npc in moveablenpcCharacterArr)
+        {
+            npc.SetActive(false);
         }
 
         playerController.TogglePlayerDialogue(true);
@@ -156,30 +178,40 @@ public class DialogManager : MonoBehaviour
 
     void ShowLine(int index)
     {
-        if (index >= lines.Length)
+        if (index >= dialogueLine.Length)
         {
             EndDialog();
             return;
         }
 
-        var line = lines[index];
+        DialogLine line = dialogueLine[index];
         dialogText.text = line.text;
 
-        CharacterSprites leftSprites = hasPowder ? leftCharacterSpritesWithPowder : leftCharacterSprites;
-        CharacterSprites rightSprites = hasPowder ? rightCharacterSpritesWithPowder : rightCharacterSprites;
-
-        if (line.speaker == Speaker.Left)
+        if(line.hideCharacters == true)
         {
-            leftCharacterImage.sprite = leftSprites.GetSprite(line.emotion, false);
-            rightCharacterImage.sprite = rightSprites.GetSprite(Emotion.Normal, true);
+            leftCharacterImage.enabled = false;
+            rightCharacterImage.enabled = false;
         }
         else
         {
-            leftCharacterImage.sprite = leftSprites.GetSprite(Emotion.Normal, true);
-            rightCharacterImage.sprite = rightSprites.GetSprite(line.emotion, false);
+            leftCharacterImage.enabled = true;
+            rightCharacterImage.enabled = true;
+
+            CharacterSprites leftSprites = hasPowder ? leftCharacterSpritesWithPowder : leftCharacterSprites;
+            CharacterSprites rightSprites = hasPowder ? rightCharacterSpritesWithPowder : rightCharacterSprites;
+
+            if (line.speaker == Speaker.Left)
+            {
+                leftCharacterImage.sprite = leftSprites.GetSprite(line.emotion, false);
+                rightCharacterImage.sprite = rightSprites.GetSprite(Emotion.Normal, true);
+            }
+            else
+            {
+                leftCharacterImage.sprite = leftSprites.GetSprite(Emotion.Normal, true);
+                rightCharacterImage.sprite = rightSprites.GetSprite(line.emotion, false);
+            }
         }
 
-        // ---- จัดการ Background ตาม line ----
         if (line.changeBackground && line.newBackground != null)
         {
             backgroundImage.gameObject.SetActive(true);
@@ -187,7 +219,7 @@ public class DialogManager : MonoBehaviour
         }
         else
         {
-            backgroundImage.gameObject.SetActive(false); // ซ่อนถ้า line นี้ไม่ได้ติ๊ก
+            backgroundImage.gameObject.SetActive(false);
         }
 
         if (line.hasChoices && line.choices.Length > 0)
@@ -205,6 +237,7 @@ public class DialogManager : MonoBehaviour
     void ShowChoices(Choice[] choices)
     {
         choicesPanel.SetActive(true);
+        imageNextDialogue.enabled = false;
 
         foreach (Transform child in choicesPanel.transform)
             Destroy(child.gameObject);
@@ -283,15 +316,16 @@ public class DialogManager : MonoBehaviour
         }
 
         isShowingChoiceResult = true;
+        imageNextDialogue.enabled = true;
     }
 
     void NextLine()
     {
-        if (currentLineIndex < 0 || currentLineIndex >= lines.Length) return;
+        if (currentLineIndex < 0 || currentLineIndex >= dialogueLine.Length) return;
 
-        var line = lines[currentLineIndex];
+        var line = dialogueLine[currentLineIndex];
 
-        if (line.nextLineIndex >= 0 && line.nextLineIndex < lines.Length)
+        if (line.nextLineIndex >= 0 && line.nextLineIndex < dialogueLine.Length)
         {
             currentLineIndex = line.nextLineIndex;
         }
@@ -302,16 +336,23 @@ public class DialogManager : MonoBehaviour
 
         ShowLine(currentLineIndex);
     }
-
-
     void EndDialog()
     {
+        blurVolume.weight = 0f;
+
+        foreach (SpriteRenderer sprite in mainCharacterSpriteRendererArr)
+        {
+            sprite.enabled = true;
+        }
+        foreach (GameObject npc in moveablenpcCharacterArr)
+        {
+            npc.SetActive(true);
+        }
+
         playerController.TogglePlayerDialogue(false);
         dialogPanel.SetActive(false);
         if (dialogCanvas != null) dialogCanvas.gameObject.SetActive(false);
 
-        // 🔔 แจ้งว่าบทสนทนาจบแล้ว
         onDialogEnd?.Invoke();
     }
-
 }

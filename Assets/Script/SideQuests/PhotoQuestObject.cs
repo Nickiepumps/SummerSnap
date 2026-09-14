@@ -7,8 +7,9 @@ public class PhotoQuestObject : MonoBehaviour
     [Header("ตั้ง ID ให้แต่ละ Object ไม่ซ้ำกัน")]
     public string questId;
     public Sprite photoSprite;
+    public Sprite photoFrameSprite;
 
-    private bool clicked = false;
+    public bool clicked = false;
     private bool isTaken = false;
 
     void Start()
@@ -18,33 +19,23 @@ public class PhotoQuestObject : MonoBehaviour
             isTaken = true;
         }
     }
-
     private void OnMouseDown()
     {
-        if (GameManager.Instance != null && GameManager.Instance.HasTaken(questId))
-        {
-            Debug.Log($"[PhotoQuestObject] {questId} เคยถ่ายไปแล้ว ห้ามถ่ายซ้ำ");
-            return;
-        }
-
+        if (GameManager.Instance != null && GameManager.Instance.HasTaken(questId)) return;
         if (isTaken) return;
         if (clicked) return;
 
-        clicked = true;
-
         if (photoSprite == null)
         {
-            Debug.LogWarning($"{name} ไม่มี Sprite!");
-            clicked = false; // reset กรณี fail
+            clicked = false;
             return;
         }
-
         if (photoPreviewSideQuests != null)
         {
-            photoPreviewSideQuests.ShowButtons(photoSprite, questId);
+            clicked = true;
+            photoPreviewSideQuests.ShowButtons(photoSprite, questId, this);
         }
     }
-
     public void MarkTaken()
     {
         isTaken = true;
@@ -54,8 +45,6 @@ public class PhotoQuestObject : MonoBehaviour
             GameManager.Instance.MarkAsTaken(questId);
         }
     }
-
-    // เรียกจาก PhotoPreviewSideQuests ตอนกดยกเลิก
     public void ResetClicked()
     {
         if (!isTaken) clicked = false;

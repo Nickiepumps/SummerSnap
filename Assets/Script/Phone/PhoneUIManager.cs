@@ -6,10 +6,10 @@ public class PhoneUIManager : MonoBehaviour
     public static PhoneUIManager Instance;
 
     [Header("UI")]
-    public GameObject phoneUI;   // UI โทรศัพท์ทั้งหมด
+    public GameObject phoneUI;
     public PhoneNavigation phoneNavigation;
     [Header("Ryu Coming")]
-    public GameObject ryuComingImage; // UI "ริวกำลังไป"
+    public GameObject ryuComingImage;
 
     [Header("Cameras")]
     public CinemachineCamera vcamNormal;
@@ -17,11 +17,13 @@ public class PhoneUIManager : MonoBehaviour
 
     [Header("Audio")]
     public AudioSource audioSource;
-    public AudioClip openPhoneSFX;   // เสียงตอนเปิดโทรศัพท์
-    public AudioClip closePhoneSFX;  // เสียงตอนปิดโทรศัพท์
+    public AudioClip openPhoneSFX;
+    public AudioClip closePhoneSFX;
 
     public bool isOpen { get; private set; } = false;
     private GameManager gameManager => GameManager.Instance;
+
+    private bool isActive = true;
 
     private void Awake()
     {
@@ -38,9 +40,18 @@ public class PhoneUIManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    private void OnEnable()
+    {
+        isActive = true;
+    }
+    private void OnDisable()
+    {
+        isActive = false;
+    }
     private void Update()
     {
+        if (isActive == false) return;
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             TogglePhone();
@@ -61,7 +72,7 @@ public class PhoneUIManager : MonoBehaviour
     {
         PlayerController player = GameManager.Instance.GetPlayerController();
 
-        if (player.isOnDialogue == true || GameManager.Instance.isPhotoshooting == true) return;
+        if (player.isOnDialogue == true || player.isOnSideQuest == true || GameManager.Instance.isPhotoshooting == true) return;
 
         isOpen = !isOpen;
         if (phoneUI != null) phoneUI.SetActive(isOpen);
@@ -71,7 +82,6 @@ public class PhoneUIManager : MonoBehaviour
             player.canMove = !isOpen;
         }
 
-        // 🎵 เล่นเสียง
         if (audioSource != null)
         {
             if (isOpen && openPhoneSFX != null)

@@ -7,7 +7,7 @@ public class SceneBGM : MonoBehaviour
     public bool playOnStart = true;
 
     [Header("Quest Mode")]
-    public bool isQuestBGM = false;  // ✅ เพิ่มบรรทัดนี้
+    public bool isQuestBGM = false;
 
     void Start()
     {
@@ -16,7 +16,6 @@ public class SceneBGM : MonoBehaviour
 
         if (isQuestBGM)
         {
-            // ✅ MainQuest → ใช้ Quest BGM โดยตรง
             AudioManager.Instance.PlayTemporaryBGMImmediate(bgm);
             return;
         }

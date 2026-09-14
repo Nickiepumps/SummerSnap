@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class RyuController : MonoBehaviour
@@ -9,8 +10,8 @@ public class RyuController : MonoBehaviour
     public Transform player;
 
     [Header("Audio")]
-    public AudioClip laughClip; // ✅ เสียงหัวเราะ ริว
-    private bool hasLaughed = false; // เล่นครั้งเดียวหลังมาถึงผู้เล่น
+    public AudioClip laughClip;
+    private bool hasLaughed = false;
 
     [Header("Follow Settings")]
     public float followDistance = 3f;
@@ -45,7 +46,7 @@ public class RyuController : MonoBehaviour
     private float idleTimer;
     private int lastDirection = 1;
 
-    public System.Action OnArrivedAtPlayer;
+    public Action OnArrivedAtPlayer;
 
     void Awake()
     {
@@ -124,7 +125,7 @@ public class RyuController : MonoBehaviour
         hasLaughed = false; // รีเซ็ตเพื่อเล่นเสียงหัวเราะใหม่หลังโทร
     }
 
-    void HandleFollow()
+    private void HandleFollow()
     {
         float distance = Vector2.Distance(transform.position, player.position);
         Vector2 targetPos = new Vector2(player.position.x, transform.position.y);
@@ -139,7 +140,6 @@ public class RyuController : MonoBehaviour
             baseSpeed = speed;
             isCalling = false;
 
-            // ✅ เล่นเสียงหัวเราะผ่าน AudioManager ครั้งเดียว
             if (!hasLaughed && laughClip != null && AudioManager.Instance != null)
             {
                 AudioManager.Instance.PlaySFX(laughClip);
@@ -156,7 +156,7 @@ public class RyuController : MonoBehaviour
         wanderTimer -= Time.deltaTime;
         if (wanderTimer <= 0)
         {
-            float randomOffset = Random.Range(-wanderRange, wanderRange);
+            float randomOffset = UnityEngine.Random.Range(-wanderRange, wanderRange);
             float targetX = player.position.x + randomOffset;
             wanderTarget = new Vector2(targetX, transform.position.y);
             wanderTimer = wanderDelay;

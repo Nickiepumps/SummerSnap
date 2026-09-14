@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RelationshipEndingStarter : MonoBehaviour
 {
@@ -28,7 +29,6 @@ public class RelationshipEndingStarter : MonoBehaviour
 
     private void OnDialogEnd()
     {
-        Debug.Log("Relationship Ending: จบบทสนทนา → โหลดฉากวิดีโอ");
-        UnityEngine.SceneManagement.SceneManager.LoadScene(nextScene);
+        SceneManager.LoadScene(nextScene);
     }
 }

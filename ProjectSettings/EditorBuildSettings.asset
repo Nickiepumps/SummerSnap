@@ -9,19 +9,19 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/Scenes/CutsceneHappyEnding.unity
+    path: Assets/Scenes/GoodEndCutscene.unity
     guid: 0984972bc0fbf764e881716052fa9b5c
   - enabled: 1
-    path: Assets/Scenes/IntroScene.unity
+    path: Assets/Scenes/TutorialScene.unity
     guid: 7b6dad01d88817548ac2a04196c6d5c7
   - enabled: 1
     path: Assets/Scenes/IntroStartGame.unity
     guid: 907b78bad50c12649bb2d9cf99d8e05c
   - enabled: 1
-    path: Assets/Scenes/LoadingScene 1.unity
+    path: Assets/Scenes/LoadingToGameplay.unity
     guid: da888657fda4f8646afa867b3c196d6e
   - enabled: 1
-    path: Assets/Scenes/LoadingScene 2.unity
+    path: Assets/Scenes/LoadingToMainmenu.unity
     guid: 144eef2238e34f2458da834b5a008a62
   - enabled: 1
     path: Assets/Scenes/MainQuest_Level1.unity

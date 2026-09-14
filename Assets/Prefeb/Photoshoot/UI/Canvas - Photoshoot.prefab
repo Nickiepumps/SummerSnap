@@ -1013,6 +1013,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Panel_Tutorial
       objectReference: {fileID: 0}
+    - target: {fileID: 8174471875946397804, guid: ef9a01dd0eba2f747953631d45ac3031, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

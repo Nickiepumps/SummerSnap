@@ -23,17 +23,11 @@ public class GameManager : MonoBehaviour
     public RuntimeAnimatorController ryuControllerNoPowder;
     public RuntimeAnimatorController ryuControllerWithPowder;
 
-    // -------------------------
-    // ✅ ระบบเก็บ Quest/Dialogs/Photo
-    // -------------------------
     private HashSet<string> takenPhotos = new HashSet<string>();
     private HashSet<string> triggeredDialogs = new HashSet<string>();
     private HashSet<string> triggeredMainQuests = new HashSet<string>();
-
-
     void Awake()
     {
-
         if (Instance == null)
         {
             Instance = this;
@@ -65,57 +59,31 @@ public class GameManager : MonoBehaviour
             cam.Follow = player.transform;
         }
     }
-
-    // -------------------------
-    // ✅ Player
-    // -------------------------
     public GameObject GetPlayer() => player;
     public PlayerController GetPlayerController() => playerController;
-
-    // -------------------------
-    // ✅ Ryu
-    // -------------------------
     public GameObject GetRyu() => ryu;
-
     public Animator GetRyuAnimator()
     {
         return ryu != null ? ryu.GetComponent<Animator>() : null;
     }
-
     public RuntimeAnimatorController GetRyuPowderController(bool hasPowder)
     {
         return hasPowder ? ryuControllerWithPowder : ryuControllerNoPowder;
     }
-
-    // -------------------------
-    // ✅ ระบบ Powder
-    // -------------------------
     public void SetCurrentDialogPowdered(bool value) => currentDialogHasPowder = value;
     public bool IsCurrentDialogPowdered() => currentDialogHasPowder;
-
-    // -------------------------
-    // ✅ ระบบ SideQuest Photo
-    // -------------------------
     public bool HasTaken(string questId) => takenPhotos.Contains(questId);
     public void MarkAsTaken(string questId)
     {
         if (!string.IsNullOrEmpty(questId))
             takenPhotos.Add(questId);
     }
-
-    // -------------------------
-    // ✅ ระบบ Dialog
-    // -------------------------
     public bool HasTriggeredDialog(string dialogId) => triggeredDialogs.Contains(dialogId);
     public void MarkDialogTriggered(string dialogId)
     {
         if (!string.IsNullOrEmpty(dialogId))
             triggeredDialogs.Add(dialogId);
     }
-
-    // -------------------------
-    // ✅ ระบบ MainQuest Trigger
-    // -------------------------
     public bool HasTriggeredMainQuest(string questId) => triggeredMainQuests.Contains(questId);
     public void MarkMainQuestTriggered(string questId)
     {
@@ -123,9 +91,6 @@ public class GameManager : MonoBehaviour
             triggeredMainQuests.Add(questId);
     }
 
-    // -------------------------
-    // ✅ Scoring (MainQuest + Dialog)
-    // -------------------------
     [Header("MainQuest Scores")]
     public int scoreLevel1;
     public int scoreLevel2;
@@ -142,7 +107,6 @@ public class GameManager : MonoBehaviour
     public void SetCurrentDialogId(string id) { currentDialogId = id; }
     public string GetCurrentDialogId() { return currentDialogId; }
 
-    // ✅ เพิ่มกลับมาแล้ว
     public void AddMainQuestScore(int level, int score)
     {
         switch (level)
@@ -168,7 +132,6 @@ public class GameManager : MonoBehaviour
 
     public void AddDialogScore(string dialogKey, int score)
     {
-        // Expect dialogKey to be "Dekpang", "Dog", "InTemple"
         if (string.IsNullOrEmpty(dialogKey)) return;
         switch (dialogKey)
         {
@@ -176,7 +139,6 @@ public class GameManager : MonoBehaviour
             case "Dog": scoreDog = Mathf.Max(scoreDog, score); break;
             case "InTemple": scoreInTemple = Mathf.Max(scoreInTemple, score); break;
             default:
-                // If custom other IDs exist, ignore or extend switch as needed
                 break;
         }
     }
@@ -187,7 +149,6 @@ public class GameManager : MonoBehaviour
              + scoreDekpang + scoreDog + scoreInTemple;
     }
 
-    // ✅ นับจำนวน Dialog ที่ดี (คะแนน >= threshold)
     public int CountGoodDialogs(int threshold = 20)
     {
         int count = 0;
@@ -196,10 +157,6 @@ public class GameManager : MonoBehaviour
         if (scoreInTemple >= threshold) count++;
         return count;
     }
-
-    // -------------------------
-    // ✅ Reset Game (วิธีที่ 1)
-    // -------------------------
     public void ResetGame()
     {
         // รีเซ็ตข้อมูล PlayerData
@@ -222,13 +179,20 @@ public class GameManager : MonoBehaviour
 
         // สร้าง player/ryu ใหม่ รอบเดียว
         player = Instantiate(playerPrefab, playerData.lastPosition, Quaternion.identity);
+        playerController = player.GetComponent<PlayerController>();
         DontDestroyOnLoad(player);
 
         ryu = Instantiate(ryuPrefab, Vector3.zero, Quaternion.identity);
         DontDestroyOnLoad(ryu);
+
+        PersistentUI.instance.TogglePhoneUI(false);
     }
     public void TogglePhotoshootStatus(bool status)
     {
         isPhotoshooting = status;
+    }
+    public void ChangeSceneToMainMenuTest()
+    {
+        SceneManager.LoadScene("LoadingToMainmenu");
     }
 }
