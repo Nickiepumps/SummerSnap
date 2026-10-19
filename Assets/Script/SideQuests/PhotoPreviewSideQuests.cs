@@ -19,7 +19,9 @@ public class PhotoPreviewSideQuests : MonoBehaviour
     private Sprite currentSprite;
     private string currentQuestId;
     private bool isSideQuestActive = false;
+    public bool isTakingPhoto = false;
 
+    public SOQuestPhotographDetail currentClickedSideQuestSO;
     private void Start()
     {
         playerController = GameManager.Instance.GetPlayerController();
@@ -71,6 +73,7 @@ public class PhotoPreviewSideQuests : MonoBehaviour
     {
         if (currentSprite == null) return;
 
+        isTakingPhoto = true;
         if (cameraSound != null) cameraSound.Play();
 
         previewImage.sprite = currentSprite;
@@ -128,6 +131,7 @@ public class PhotoPreviewSideQuests : MonoBehaviour
                 }
             }
         }
+        currentClickedSideQuestSO = null;
         playerController.canMove = true;
         playerController.isOnSideQuest = false;
         isSideQuestActive = false;
@@ -145,9 +149,9 @@ public class PhotoPreviewSideQuests : MonoBehaviour
         {
             if (currentSprite != null)
             {
-                if (SideQuestPhotoStorage.Instance != null)
+                if (PhoneAlbumUI.Instance != null)
                 {
-                    SideQuestPhotoStorage.Instance.AddPhoto(currentSprite);
+                    PhoneAlbumUI.Instance.AddPhoto(currentSprite, currentClickedSideQuestSO);
                 }
             }
             if (!string.IsNullOrEmpty(currentQuestId))
@@ -163,6 +167,7 @@ public class PhotoPreviewSideQuests : MonoBehaviour
                 }
             }
         }
+        isTakingPhoto = false;
         isSideQuestActive = false;
         playerController.canMove = true;
         playerController.isOnSideQuest = false;

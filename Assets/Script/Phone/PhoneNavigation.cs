@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections.Generic;
-
 public class PhoneNavigation : MonoBehaviour
 {
-    [System.Serializable]
+    [Serializable]
     public class PanelEntry
     {
         public string panelName;
@@ -14,14 +14,13 @@ public class PhoneNavigation : MonoBehaviour
 
     private Dictionary<string, GameObject> panelDict;
     private GameObject currentPanel;
-
-    void Awake()
+    private void Awake()
     {
         panelDict = new Dictionary<string, GameObject>();
         foreach (var entry in panels)
         {
             panelDict[entry.panelName] = entry.panelObj;
-            entry.panelObj.SetActive(false); // ปิดทุก panel
+            entry.panelObj.SetActive(false);
         }
 
         if (panelDict.ContainsKey("Home"))
@@ -35,6 +34,11 @@ public class PhoneNavigation : MonoBehaviour
 
         if (panelDict.ContainsKey(panelName))
         {
+            if(panelName == "Album")
+            {
+                PhoneAlbumUI_Work.Instance.CheckNoticedPhoto();
+                PhoneAlbumUI.Instance.CheckNoticedPhoto();
+            }
             currentPanel = panelDict[panelName];
             currentPanel.SetActive(true);
         }

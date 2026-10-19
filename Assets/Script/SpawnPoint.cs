@@ -14,7 +14,7 @@ public class SpawnPoint : MonoBehaviour
     {
         yield return null; // รอ 1 frame
 
-        GameObject player = GameManager.Instance != null ? GameManager.Instance.GetPlayer() : null;
+        GameObject player = GameManager.Instance != null ? GameManager.Instance.GetPlayerGameObject() : null;
         GameObject ryu = GameManager.Instance != null ? GameManager.Instance.GetRyu() : null;
         if (player == null || ryu == null) yield break;
 

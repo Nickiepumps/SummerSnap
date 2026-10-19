@@ -15,7 +15,6 @@ public class TriggerDialog : MonoBehaviour
         {
             if (GameManager.Instance != null && GameManager.Instance.HasTriggeredDialog(dialogId))
             {
-                // เคยเล่นแล้ว → ออกจากฟังก์ชัน
                 return;
             }
 

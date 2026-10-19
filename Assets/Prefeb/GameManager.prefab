@@ -60,6 +60,10 @@ MonoBehaviour:
   scoreDekpang: 0
   scoreDog: 0
   scoreInTemple: 0
+  photographResultReactionSOArr:
+  - {fileID: 11400000, guid: 539e8283e92955a43a5b943df6bc963f, type: 2}
+  - {fileID: 11400000, guid: d7faad7d369f89348a455e74341609bc, type: 2}
+  - {fileID: 11400000, guid: 0d7a6b1c1d06f38478c10c0039a072ae, type: 2}
 --- !u!114 &6824856387116238454
 MonoBehaviour:
   m_ObjectHideFlags: 0

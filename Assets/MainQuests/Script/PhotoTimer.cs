@@ -56,23 +56,19 @@ public class PhotoTimer : MonoBehaviour
 
     void GameOver()
     {
-       
-        Time.timeScale = 0f; // หยุดเวลาเกมทั้งเกม
+        Time.timeScale = 0f;
 
         if (gameOverPanel != null) gameOverPanel.SetActive(true);
         
-        // แจ้งให้ PhotoCaptureManager รู้ว่าเกมจบแล้ว
         if (photoCaptureManager != null)
         {
             photoCaptureManager.SetGameOver();
         }
     }
-
     public void StopTimer()
     {
         isRunning = false;
     }
-
     public void StartTimer(float newTime)
     {
         totalTime = newTime;

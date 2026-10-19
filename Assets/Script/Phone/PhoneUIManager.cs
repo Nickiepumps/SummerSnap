@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using Unity.Cinemachine;
-
 public class PhoneUIManager : MonoBehaviour
 {
     public static PhoneUIManager Instance;
 
+    [Header("Controller")]
+    public AlbumViewerController albumViewerController;
+
     [Header("UI")]
     public GameObject phoneUI;
     public PhoneNavigation phoneNavigation;
+
     [Header("Ryu Coming")]
     public GameObject ryuComingImage;
 
@@ -40,6 +43,10 @@ public class PhoneUIManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void Start()
+    {
+        albumViewerController.Initialize();
+    }
     private void OnEnable()
     {
         isActive = true;
@@ -63,11 +70,10 @@ public class PhoneUIManager : MonoBehaviour
         vcamNormal = cinemachineCam;
         if (vcamPhone != null && gameManager != null)
         {
-            GameObject player = gameManager.GetPlayer();
+            GameObject player = gameManager.GetPlayerGameObject();
             vcamPhone.Target.TrackingTarget = player.transform;
         }
     }
-
     public void TogglePhone()
     {
         PlayerController player = GameManager.Instance.GetPlayerController();
@@ -92,6 +98,8 @@ public class PhoneUIManager : MonoBehaviour
 
         if (isOpen)
         {
+            GameManager.Instance.GetPlayerController().TogglePhoneNotif(false);
+            NPCDisplayManager.instance.ToggleNPCDisplay(false);
             vcamPhone.gameObject.SetActive(true);
             if (phoneNavigation != null)
                 phoneNavigation.ShowPanel("Home");
@@ -101,6 +109,7 @@ public class PhoneUIManager : MonoBehaviour
         }
         else
         {
+            NPCDisplayManager.instance.ToggleNPCDisplay(true);
             if (vcamPhone != null) vcamPhone.Priority = 5;
             if (vcamNormal != null) vcamNormal.Priority = 20;
             vcamPhone.gameObject.SetActive(false);

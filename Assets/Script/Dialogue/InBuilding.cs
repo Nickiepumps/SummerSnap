@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
 public class InBuilding : MonoBehaviour
 {
     [Header("ตั้ง ID สำหรับประตูนี้ (ห้ามซ้ำ)")]

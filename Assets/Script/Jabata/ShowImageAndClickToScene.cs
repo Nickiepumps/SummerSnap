@@ -36,7 +36,7 @@ public class ShowImageAndClickToScene : MonoBehaviour
     {
         if (photoPreviewSideQuests.GetSideQuestActiveStatus() == true) return;
 
-        GameObject player = GameManager.Instance?.GetPlayer();
+        GameObject player = GameManager.Instance?.GetPlayerGameObject();
         GameObject ryu = GameManager.Instance?.GetRyu();
 
         if (player != null && ryu != null)

@@ -14,7 +14,7 @@ public class StartGameButton : MonoBehaviour
         // 🔹 ทำลาย Player/Ryu เดิมจากรอบก่อน
         if (GameManager.Instance != null)
         {
-            GameObject oldPlayer = GameManager.Instance.GetPlayer();
+            GameObject oldPlayer = GameManager.Instance.GetPlayerGameObject();
             if (oldPlayer != null) Destroy(oldPlayer);
 
             GameObject oldRyu = GameManager.Instance.GetRyu();

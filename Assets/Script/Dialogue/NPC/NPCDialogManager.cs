@@ -2,7 +2,6 @@
 using TMPro;
 using UnityEngine.UI;
 using System.Collections;
-
 public class NPCDialogManager : MonoBehaviour
 {
     private PlayerController playerController;
@@ -21,17 +20,18 @@ public class NPCDialogManager : MonoBehaviour
     private int currentIndex;
     private bool waitingForChoice;
     private bool canInput = true;
-
-    void Awake()
+    private void Awake()
     {
         if (dialogPanel != null)
+        {
             dialogPanel.SetActive(false);
+        }
     }
     private void Start()
     {
         Initialize();
     }
-    void Update()
+    private void Update()
     {
         if (dialogPanel.activeSelf && !waitingForChoice && canInput)
         {
@@ -51,7 +51,7 @@ public class NPCDialogManager : MonoBehaviour
         if (lines == null || lines.Length == 0) return;
 
         playerController.TogglePlayerDialogue(true);
-        EndDialog(); // ปิดของเก่าก่อน
+        EndDialog();
 
         currentLines = lines;
         currentIndex = 0;
@@ -136,7 +136,6 @@ public class NPCDialogManager : MonoBehaviour
             currentIndex++;
         }
 
-        // ถ้า index เกินสุดท้าย → ปิด dialog
         if (currentIndex >= currentLines.Length)
         {
             EndDialog();

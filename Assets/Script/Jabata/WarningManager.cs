@@ -7,18 +7,16 @@ public class WarningManager : MonoBehaviour
     public static WarningManager Instance;
 
     [Header("UI Reference")]
-    public Image warningImage;   // ลาก Image ที่เป็น Warning ใส่ตรงนี้
+    public Image warningImage;
 
     private float warningTimer = 0f;
-
-    void Awake()
+    private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            // จัด Canvas ให้ลอยบนสุด
             var canvas = GetComponent<Canvas>();
             canvas.overrideSorting = true;
             canvas.sortingOrder = 9999;
@@ -31,8 +29,7 @@ public class WarningManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    void Update()
+    private void Update()
     {
         if (warningTimer > 0)
         {
@@ -43,7 +40,6 @@ public class WarningManager : MonoBehaviour
             }
         }
     }
-
     public void ShowWarning(float duration = 2f)
     {
         if (warningImage == null) return;

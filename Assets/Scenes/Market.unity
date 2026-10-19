@@ -1428,6 +1428,53 @@ MonoBehaviour:
     isChoice: 0
     choices: []
     nextLineIndices: 
+--- !u!1 &384971960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 384971962}
+  - component: {fileID: 384971961}
+  m_Layer: 0
+  m_Name: NPCDisplayManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &384971961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384971960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e840699eb665f043855180392a9b7a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCDisplayManager
+  moveablenpcCharacterArr:
+  - {fileID: 7435523591923722857}
+  - {fileID: 6548515371473206717}
+--- !u!4 &384971962
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384971960}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &401778453
 GameObject:
   m_ObjectHideFlags: 0
@@ -3788,6 +3835,7 @@ MonoBehaviour:
   questId: MeatBall
   photoSprite: {fileID: 21300000, guid: 91a5a7f3efadd04499c98110d353d132, type: 3}
   photoFrameSprite: {fileID: 21300000, guid: 6fa0f9390dc6c534e948ace9ff1baf67, type: 3}
+  photographDetailSO: {fileID: 11400000, guid: 3fc8f03fa746ee243887c8503bdfeb12, type: 2}
   clicked: 0
 --- !u!61 &1064187058
 BoxCollider2D:
@@ -5465,6 +5513,7 @@ MonoBehaviour:
   questId: MenuCafe
   photoSprite: {fileID: 21300000, guid: 04484697028050a469bd95cedcbaef46, type: 3}
   photoFrameSprite: {fileID: 21300000, guid: 51da7ee106a2df44883dc79456a7e43b, type: 3}
+  photographDetailSO: {fileID: 11400000, guid: 18b0227e2269d0347b146e04f7ed3979, type: 2}
   clicked: 0
 --- !u!1 &1417119853
 GameObject:
@@ -5863,6 +5912,39 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &1486536490
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1486536491}
+  m_Layer: 0
+  m_Name: MovableNPC
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1486536491
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1486536490}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2897637800130117887}
+  - {fileID: 7949629617769267021}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1505595893
 GameObject:
   m_ObjectHideFlags: 0
@@ -9306,7 +9388,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1486536491}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2903796680071507743
 Transform:
@@ -12666,12 +12748,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6548515371473206717}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 68.6, y: -2.16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1486536491}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &7956530295883314175
 Transform:
@@ -13037,9 +13119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blurVolume: {fileID: 775486388}
-  moveablenpcCharacterArr:
-  - {fileID: 7435523591923722857}
-  - {fileID: 6548515371473206717}
+  npcDisplayManager: {fileID: 384971961}
   leftCharacterSprites:
     normal: {fileID: 6426733045084846112, guid: b8b3179b9f984c9438021afb6d0540fb, type: 3}
     normalGray: {fileID: 1902208238856589715, guid: 5507601973cc1584a89eab0eb54f2203, type: 3}
@@ -13347,8 +13427,7 @@ SceneRoots:
   - {fileID: 966927667539973782}
   - {fileID: 722052019}
   - {fileID: 576205065804049287}
-  - {fileID: 2897637800130117887}
-  - {fileID: 7949629617769267021}
+  - {fileID: 1486536491}
   - {fileID: 1662940353}
   - {fileID: 1656750237}
   - {fileID: 9208492574042620132}
@@ -13360,6 +13439,7 @@ SceneRoots:
   - {fileID: 1805638390}
   - {fileID: 6640101664313151589}
   - {fileID: 1863698408975258721}
+  - {fileID: 384971962}
   - {fileID: 1935314034}
   - {fileID: 6147592568527651883}
   - {fileID: 1260826994}

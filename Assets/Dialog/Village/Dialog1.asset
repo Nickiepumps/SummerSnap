@@ -18,6 +18,7 @@ MonoBehaviour:
     text: "\u0E23\u0E34\u0E27 \n\u201C\u0E2A\u0E27\u0E31\u0E2A\u0E14\u0E35\u0E04\u0E23\u0E31\u0E1A\u0E1E\u0E35\u0E48
       \u0E23\u0E2D\u0E19\u0E32\u0E19\u0E21\u0E31\u0E49\u0E22\u0E04\u0E23\u0E31\u0E1A\u201D\r\n"
     changeBackground: 0
+    hideCharacters: 0
     newBackground: {fileID: 0}
     hasChoices: 0
     choices: []
@@ -26,6 +27,7 @@ MonoBehaviour:
     emotion: 0
     text: "\u0E2D\u0E31\u0E48\u0E07\u0E40\u0E1B\u0E32 \n\u201C\u0E44\u0E21\u0E48\u0E40\u0E25\u0E22\u0E46\u201D\r\n\r\n"
     changeBackground: 0
+    hideCharacters: 0
     newBackground: {fileID: 0}
     hasChoices: 0
     choices: []
@@ -35,26 +37,66 @@ MonoBehaviour:
     text: "\u0E2D\u0E31\u0E48\u0E07\u0E40\u0E1B\u0E32 \n(\u0E40\u0E14\u0E47\u0E01\u0E04\u0E19\u0E19\u0E35\u0E49\u0E2B\u0E19\u0E49\u0E32\u0E15\u0E32\u0E14\u0E35\u0E01\u0E27\u0E48\u0E32\u0E17\u0E35\u0E48\u0E40\u0E2B\u0E47\u0E19\u0E43\u0E19\u0E23\u0E39\u0E1B\u0E2D\u0E35\u0E01\u0E41\u0E2B\u0E30
       ><)"
     changeBackground: 0
+    hideCharacters: 0
     newBackground: {fileID: 0}
     hasChoices: 0
     choices: []
     nextLineIndex: -1
   - speaker: 0
     emotion: 0
-    text: "\u0E2D\u0E31\u0E48\u0E07\u0E40\u0E1B\u0E32 \n\u201C\u0E07\u0E31\u0E49\u0E19\u0E02\u0E2D\u0E17\u0E27\u0E19\u0E01\u0E48\u0E2D\u0E19\u0E19\u0E30
-      \u0E27\u0E31\u0E19\u0E19\u0E35\u0E49\u0E40\u0E23\u0E32\u0E08\u0E30\u0E44\u0E1B\u0E16\u0E48\u0E32\u0E22\u0E23\u0E39\u0E1B\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E40\u0E2D\u0E32\u0E44\u0E1B\u0E42\u0E1E\u0E2A\u0E15\u0E4C\u0E43\u0E19
-      istaxx \u0E01\u0E31\u0E19 \u0E42\u0E14\u0E22\u0E08\u0E30\u0E41\u0E1A\u0E48\u0E07\u0E40\u0E1B\u0E47\u0E19\u0E23\u0E39\u0E1B\u0E2B\u0E25\u0E31\u0E01\u0E46
+    text: "\u0E2D\u0E31\u0E48\u0E07\u0E40\u0E1B\u0E32 \n\u201C\u0E07\u0E31\u0E49\u0E19\u0E02\u0E2D\u0E17\u0E27\u0E19\u0E2D\u0E35\u0E01\u0E04\u0E23\u0E31\u0E49\u0E07\u0E19\u0E30
+      \u0E27\u0E31\u0E19\u0E19\u0E35\u0E49\u0E40\u0E23\u0E32\u0E08\u0E30\u0E44\u0E1B\u0E16\u0E48\u0E32\u0E22\u0E23\u0E39\u0E1B\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E42\u0E1B\u0E23\u0E42\u0E21\u0E17\u0E07\u0E32\u0E19\u0E02\u0E2D\u0E07\u0E23\u0E34\u0E27\u0E01\u0E31\u0E19
+      \u0E42\u0E14\u0E22\u0E08\u0E30\u0E41\u0E1A\u0E48\u0E07\u0E40\u0E1B\u0E47\u0E19\u0E23\u0E39\u0E1B\u0E2B\u0E25\u0E31\u0E01\u0E46
       4 \u0E23\u0E39\u0E1B \u0E41\u0E25\u0E49\u0E27\u0E01\u0E47\u0E23\u0E39\u0E1B\u0E1A\u0E23\u0E23\u0E22\u0E32\u0E01\u0E32\u0E28\u0E23\u0E2D\u0E1A\u0E46\u201D\r\n"
     changeBackground: 0
+    hideCharacters: 0
     newBackground: {fileID: 0}
     hasChoices: 0
     choices: []
     nextLineIndex: -1
   - speaker: 1
     emotion: 4
-    text: "\u0E23\u0E34\u0E27\n\"\u0E1D\u0E32\u0E01\u0E40\u0E19\u0E37\u0E49\u0E2D\u0E1D\u0E32\u0E01\u0E15\u0E31\u0E27\u0E14\u0E49\u0E27\u0E22\u0E19\u0E30\u0E04\u0E23\u0E31\u0E1A!
-      ^_^ \"\r"
+    text: "\u0E23\u0E34\u0E27\n\"\u0E42\u0E2D\u0E40\u0E04\u0E04\u0E23\u0E31\u0E1A!\"\r"
     changeBackground: 0
+    hideCharacters: 0
+    newBackground: {fileID: 0}
+    hasChoices: 0
+    choices: []
+    nextLineIndex: -1
+  - speaker: 1
+    emotion: 4
+    text: "\u0E2D\u0E31\u0E48\u0E07\u0E40\u0E1B\u0E32\n\"\u0E1E\u0E35\u0E48\u0E01\u0E47\u0E21\u0E32\u0E17\u0E35\u0E48\u0E19\u0E35\u0E48\u0E04\u0E23\u0E31\u0E49\u0E07\u0E41\u0E23\u0E01
+      \u0E07\u0E31\u0E49\u0E19\u0E40\u0E23\u0E32\u0E25\u0E2D\u0E07\u0E41\u0E22\u0E01\u0E01\u0E31\u0E19\u0E2B\u0E32\u0E17\u0E35\u0E48\u0E2A\u0E27\u0E22\u0E46\u0E14\u0E39\u0E21\u0E31\u0E49\u0E22\"\r"
+    changeBackground: 0
+    hideCharacters: 0
+    newBackground: {fileID: 0}
+    hasChoices: 0
+    choices: []
+    nextLineIndex: -1
+  - speaker: 1
+    emotion: 4
+    text: "\u0E23\u0E34\u0E27\n\"\u0E23\u0E31\u0E1A\u0E17\u0E23\u0E32\u0E1A\u0E04\u0E23\u0E31\u0E1A\"\r"
+    changeBackground: 0
+    hideCharacters: 0
+    newBackground: {fileID: 0}
+    hasChoices: 0
+    choices: []
+    nextLineIndex: -1
+  - speaker: 1
+    emotion: 4
+    text: "\u0E2D\u0E31\u0E48\u0E07\u0E40\u0E1B\u0E32\n\"\u0E16\u0E49\u0E32\u0E40\u0E08\u0E2D\u0E17\u0E35\u0E48\u0E2A\u0E27\u0E22\u0E46
+      \u0E42\u0E17\u0E23\u0E21\u0E32\u0E25\u0E30\u0E01\u0E31\u0E19\"\r"
+    changeBackground: 0
+    hideCharacters: 0
+    newBackground: {fileID: 0}
+    hasChoices: 0
+    choices: []
+    nextLineIndex: -1
+  - speaker: 1
+    emotion: 4
+    text: "\u0E23\u0E34\u0E27\n\"\u0E44\u0E14\u0E49\u0E40\u0E25\u0E22\u0E04\u0E23\u0E31\u0E1A\"\r"
+    changeBackground: 0
+    hideCharacters: 0
     newBackground: {fileID: 0}
     hasChoices: 0
     choices: []

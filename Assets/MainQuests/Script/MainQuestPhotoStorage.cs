@@ -5,13 +5,12 @@ public class MainQuestPhotoStorage : MonoBehaviour
 {
     public static MainQuestPhotoStorage Instance;
     public List<Sprite> photos = new List<Sprite>();
-
-    void Awake()
+    private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // อยู่ทุก scene
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -25,5 +24,6 @@ public class MainQuestPhotoStorage : MonoBehaviour
         {
             photos.Add(photo);
         }
+        GameManager.Instance.GetPlayerController().TogglePhoneNotif(true);
     }
 }

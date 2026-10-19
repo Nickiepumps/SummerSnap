@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Rendering;
-
 public class DialogManager : MonoBehaviour
 {
     public enum Speaker { Left, Right }
@@ -72,7 +71,7 @@ public class DialogManager : MonoBehaviour
 
     [SerializeField] private Volume blurVolume;
 
-    [SerializeField] private GameObject[] moveablenpcCharacterArr;
+    [SerializeField] private NPCDisplayManager npcDisplayManager;
     private SpriteRenderer[] mainCharacterSpriteRendererArr = new SpriteRenderer[2];
 
     [Header("Character Sprites (No Powder)")]
@@ -140,15 +139,13 @@ public class DialogManager : MonoBehaviour
     private void Initialize()
     {
         playerController = GameManager.Instance.GetPlayerController();
-        mainCharacterSpriteRendererArr[0] = GameManager.Instance.GetPlayer().GetComponent<SpriteRenderer>();
+        mainCharacterSpriteRendererArr[0] = GameManager.Instance.GetPlayerGameObject().GetComponent<SpriteRenderer>();
         mainCharacterSpriteRendererArr[1] = GameManager.Instance.GetRyu().GetComponent<SpriteRenderer>();
     }
-
     public void SetDialog(DialogData data)
     {
         dialogueLine = data.lines;
     }
-
     public void StartDialog()
     {
         if (dialogueLine == null || dialogueLine.Length == 0)
@@ -163,10 +160,7 @@ public class DialogManager : MonoBehaviour
         {
             sprite.enabled = false;
         }
-        foreach(GameObject npc in moveablenpcCharacterArr)
-        {
-            npc.SetActive(false);
-        }
+        npcDisplayManager.ToggleNPCDisplay(false);
 
         playerController.TogglePlayerDialogue(true);
         currentLineIndex = 0;
@@ -175,8 +169,7 @@ public class DialogManager : MonoBehaviour
 
         ShowLine(currentLineIndex);
     }
-
-    void ShowLine(int index)
+    private void ShowLine(int index)
     {
         if (index >= dialogueLine.Length)
         {
@@ -233,8 +226,7 @@ public class DialogManager : MonoBehaviour
             choicesPanel.SetActive(false);
         }
     }
-
-    void ShowChoices(Choice[] choices)
+    private void ShowChoices(Choice[] choices)
     {
         choicesPanel.SetActive(true);
         imageNextDialogue.enabled = false;
@@ -263,21 +255,17 @@ public class DialogManager : MonoBehaviour
             {
                 Debug.Log("Button clicked! EffectType: " + choice.effectType);
 
-                // แสดง Icon ก่อน
                 if (choice.effectType == ChoiceEffectType.Heart && heartIcon != null)
                     heartIcon.SetActive(true);
                 else if (choice.effectType == ChoiceEffectType.Fail && failIcon != null)
                     failIcon.SetActive(true);
 
-                // เรียก Coroutine แสดง Choice Result
                 StartCoroutine(HandleChoiceSelection(choice, btnGO));
             });
         }
     }
-
-    IEnumerator HandleChoiceSelection(Choice choice, GameObject chosenButton)
+    private IEnumerator HandleChoiceSelection(Choice choice, GameObject chosenButton)
     {
-        // รอสั้น ๆ เพื่อให้ Icon โชว์ก่อน
         yield return new WaitForSeconds(0.5f);
 
         choicesPanel.SetActive(false);
@@ -301,14 +289,13 @@ public class DialogManager : MonoBehaviour
 
         pendingNextLineIndex = choice.nextLineIndex;
 
-        // --- Dialog scoring integration ---
         string dialogKey = (GameManager.Instance != null) ? GameManager.Instance.GetCurrentDialogId() : null;
         int dialogScore = 0;
-        switch (choice.effectType) // map to good/mid/bad
+        switch (choice.effectType)
         {
-            case ChoiceEffectType.Heart: dialogScore = 10; break;   // ดี
-            case ChoiceEffectType.None: dialogScore = 5; break;     // กลาง
-            case ChoiceEffectType.Fail: dialogScore = 0; break;     // แย่
+            case ChoiceEffectType.Heart: dialogScore = 10; break;
+            case ChoiceEffectType.None: dialogScore = 5; break;
+            case ChoiceEffectType.Fail: dialogScore = 0; break;
         }
         if (GameManager.Instance != null && !string.IsNullOrEmpty(dialogKey))
         {
@@ -318,8 +305,7 @@ public class DialogManager : MonoBehaviour
         isShowingChoiceResult = true;
         imageNextDialogue.enabled = true;
     }
-
-    void NextLine()
+    private void NextLine()
     {
         if (currentLineIndex < 0 || currentLineIndex >= dialogueLine.Length) return;
 
@@ -336,7 +322,7 @@ public class DialogManager : MonoBehaviour
 
         ShowLine(currentLineIndex);
     }
-    void EndDialog()
+    private void EndDialog()
     {
         blurVolume.weight = 0f;
 
@@ -344,10 +330,7 @@ public class DialogManager : MonoBehaviour
         {
             sprite.enabled = true;
         }
-        foreach (GameObject npc in moveablenpcCharacterArr)
-        {
-            npc.SetActive(true);
-        }
+        npcDisplayManager.ToggleNPCDisplay(true);
 
         playerController.TogglePlayerDialogue(false);
         dialogPanel.SetActive(false);

@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public static class PhotoStarCalculator
 {
     public static int CalculateStars(int score, StarThreshold thresholds)

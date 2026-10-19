@@ -547,6 +547,54 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.33, y: 6.11, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &77345419
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 77345421}
+  - component: {fileID: 77345420}
+  m_Layer: 0
+  m_Name: NPCDisplayManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &77345420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77345419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e840699eb665f043855180392a9b7a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCDisplayManager
+  moveablenpcCharacterArr:
+  - {fileID: 316343583}
+  - {fileID: 1777411637}
+  - {fileID: 240488678}
+--- !u!4 &77345421
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77345419}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &107880054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,7 +1079,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 414815240}
+    m_TransformParent: {fileID: 1148277245}
     m_Modifications:
     - target: {fileID: 5506158118603680079, guid: be7063fee858a96469908ddd7145fe17, type: 3}
       propertyPath: loop
@@ -1361,7 +1409,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 414815240}
+    m_TransformParent: {fileID: 1148277245}
     m_Modifications:
     - target: {fileID: 1338667434767960085, guid: 80d8dc2ce2bb62e4eb4fbe67a1a09fe6, type: 3}
       propertyPath: m_Name
@@ -2282,9 +2330,6 @@ Transform:
   - {fileID: 830537683}
   - {fileID: 986079918}
   - {fileID: 396665710}
-  - {fileID: 616216447}
-  - {fileID: 1777411636}
-  - {fileID: 40015284}
   m_Father: {fileID: 2377467685597287409}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &414815241
@@ -3347,6 +3392,7 @@ MonoBehaviour:
   questId: Fog
   photoSprite: {fileID: 21300000, guid: 2d4bb36831764b4458941ee1569ae9ac, type: 3}
   photoFrameSprite: {fileID: 21300000, guid: 87d7ca5822d971d4780970a00a02f6bd, type: 3}
+  photographDetailSO: {fileID: 11400000, guid: 658a6a6393351f04c9f4e4c636e6a855, type: 2}
   clicked: 0
 --- !u!61 &591519279
 BoxCollider2D:
@@ -6164,6 +6210,40 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &1148277244
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1148277245}
+  m_Layer: 0
+  m_Name: MovableNPC
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1148277245
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148277244}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 616216447}
+  - {fileID: 1777411636}
+  - {fileID: 40015284}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1156932597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8183,6 +8263,7 @@ MonoBehaviour:
   questId: Sand
   photoSprite: {fileID: 21300000, guid: 2401e81180b2639479f8cdf693a50456, type: 3}
   photoFrameSprite: {fileID: -189068789040346452, guid: 300d70f00c74f2740b9f2c9cf10b7b09, type: 3}
+  photographDetailSO: {fileID: 11400000, guid: a55df4222a2cace4389705df27d2c9e1, type: 2}
   clicked: 0
 --- !u!61 &1562982128
 BoxCollider2D:
@@ -9243,7 +9324,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 414815240}
+    m_TransformParent: {fileID: 1148277245}
     m_Modifications:
     - target: {fileID: 6663971702425398724, guid: 2d6d993a8ef242542b47b59fbd4e4690, type: 3}
       propertyPath: m_Name
@@ -11395,10 +11476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blurVolume: {fileID: 855278940}
-  moveablenpcCharacterArr:
-  - {fileID: 316343583}
-  - {fileID: 1777411637}
-  - {fileID: 240488678}
+  npcDisplayManager: {fileID: 77345420}
   leftCharacterSprites:
     normal: {fileID: 6426733045084846112, guid: b8b3179b9f984c9438021afb6d0540fb, type: 3}
     normalGray: {fileID: 1902208238856589715, guid: 5507601973cc1584a89eab0eb54f2203, type: 3}
@@ -16006,7 +16084,9 @@ SceneRoots:
   - {fileID: 347120436}
   - {fileID: 2110563851}
   - {fileID: 3207257546457050451}
+  - {fileID: 1148277245}
   - {fileID: 7191224455896150607}
+  - {fileID: 77345421}
   - {fileID: 416832916470743788}
   - {fileID: 5759752357432216818}
   - {fileID: 8772569904873925628}

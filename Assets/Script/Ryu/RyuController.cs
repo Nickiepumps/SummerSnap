@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 public class RyuController : MonoBehaviour
 {
     public enum RyuState { Idle, Follow, Wander, Ending, Wait }
@@ -47,31 +46,27 @@ public class RyuController : MonoBehaviour
     private int lastDirection = 1;
 
     public Action OnArrivedAtPlayer;
-
-    void Awake()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         baseSpeed = speed;
 
         if (player == null && GameManager.Instance != null)
-            player = GameManager.Instance.GetPlayer().transform;
+            player = GameManager.Instance.GetPlayerGameObject().transform;
 
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
-
-    void OnDestroy()
+    private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         GameObject obj = GameObject.Find("EndingSpawnPoint");
         endingSpawnPoint = obj != null ? obj.transform : null;
     }
-
-    void Update()
+    private void Update()
     {
         if (player == null) return;
 
@@ -96,40 +91,35 @@ public class RyuController : MonoBehaviour
             case RyuState.Wait: HandleWait(); break;
         }
     }
-
-    void LateUpdate()
+    private void LateUpdate()
     {
         Vector3 pos = transform.position;
         pos.y = fixedY;
         transform.position = pos;
     }
-
-    void HandleIdle()
+    private void HandleIdle()
     {
         SetAnimation(lastDirection == 1 ? 1 : 0);
         float distance = Vector2.Distance(transform.position, player.position);
         if (distance < detectDistance)
             currentState = RyuState.Follow;
     }
-
     public bool IsCalling()
     {
         return isCalling;
     }
-
     public void CallRyu()
     {
         currentState = RyuState.Follow;
         isCalling = true;
         baseSpeed = speed;
-        hasLaughed = false; // รีเซ็ตเพื่อเล่นเสียงหัวเราะใหม่หลังโทร
+        hasLaughed = false;
     }
-
     private void HandleFollow()
     {
         float distance = Vector2.Distance(transform.position, player.position);
         Vector2 targetPos = new Vector2(player.position.x, transform.position.y);
-
+        baseSpeed = speed;
         if (distance > followDistance)
         {
             MoveTowards(targetPos, 0.5f);
@@ -137,7 +127,7 @@ public class RyuController : MonoBehaviour
         else
         {
             rb.linearVelocity = Vector2.zero;
-            baseSpeed = speed;
+            //baseSpeed = speed;
             isCalling = false;
 
             if (!hasLaughed && laughClip != null && AudioManager.Instance != null)
@@ -151,9 +141,10 @@ public class RyuController : MonoBehaviour
         }
     }
 
-    void HandleWander()
+    private void HandleWander()
     {
         wanderTimer -= Time.deltaTime;
+        baseSpeed = speed;
         if (wanderTimer <= 0)
         {
             float randomOffset = UnityEngine.Random.Range(-wanderRange, wanderRange);
@@ -163,11 +154,11 @@ public class RyuController : MonoBehaviour
         }
         MoveTowards(wanderTarget);
     }
-
-    void HandleEnding()
+    private void HandleEnding()
     {
         if (endingSpawnPoint == null) return;
 
+        baseSpeed = speed;
         float distance = Vector2.Distance(transform.position, endingSpawnPoint.position);
         if (distance > endingStopDistance)
             MoveTowards(endingSpawnPoint.position, endingSpeedMultiplier);
@@ -195,7 +186,7 @@ public class RyuController : MonoBehaviour
                 SetIdleAnim();
             }
     }
-    void MoveTowards(Vector2 target, float multiplier = 1f)
+    private void MoveTowards(Vector2 target, float multiplier = 1f)
     {
         float moveSpeed = (isCalling ? baseSpeed * callSpeedMultiplier : baseSpeed) * multiplier;
         Vector2 newPos = Vector2.MoveTowards(rb.position, target, moveSpeed * Time.deltaTime);
@@ -214,18 +205,16 @@ public class RyuController : MonoBehaviour
             SetWalkAnim();
         }
     }
-
-    void SetIdleAnim()
+    private void SetIdleAnim()
     {
         rb.linearVelocity = Vector2.zero;
         SetAnimation(lastDirection == 1 ? 1 : 0);
     }
-
-    void SetWalkAnim()
+    private void SetWalkAnim()
     {
         SetAnimation(lastDirection == 1 ? 2 : 3);
     }
-    void SetAnimation(int stateValue)
+    private void SetAnimation(int stateValue)
     {
         if (animator != null)
             animator.SetInteger("Ryu", stateValue);

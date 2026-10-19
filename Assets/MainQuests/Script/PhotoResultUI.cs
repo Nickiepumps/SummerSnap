@@ -15,8 +15,8 @@ public class StarThreshold
 public class PhotoResultUI : MonoBehaviour
 {
     [Header("Panels")]
-    public GameObject resultPanelComplete;   // ชี้ไปที่ "ResultPanelComplete" (Panel แม่)
-    public GameObject popupPanel;            // ชี้ไปที่ "Complete" (Panel ที่จะ Animate)
+    public GameObject resultPanelComplete;
+    public GameObject popupPanel;
 
     [Header("Result Panel Buttons")]
     [SerializeField] private Button buttonCompleteResultOk;
@@ -64,6 +64,7 @@ public class PhotoResultUI : MonoBehaviour
     private Vector3[] starOriginalScales;
 
     private Sprite photoSprite;
+    private SOQuestPhotographDetail photoResultReactionSO;
     void Start()
     {
         // Result panel buttons initialize
@@ -98,21 +99,16 @@ public class PhotoResultUI : MonoBehaviour
     private IEnumerator ShowPopupAnimated(int score, bool timeOk, bool npcOk, bool blinkOk, bool fogOk)
     {
         yield return new WaitForSecondsRealtime(0.3f);
-
-        // เปิด Panel แม่ทั้งหมด (รวม BG_black)
         resultPanelComplete.SetActive(true);
 
-        // เตรียมค่าเริ่มต้นสำหรับ Animate Panel Complete
         popupCanvasGroup.alpha = 0;
         popupRect.localScale = Vector3.one * 0.8f;
 
-        // ตั้งค่าภาพไอคอนตามผลลัพธ์
         timeIcon.sprite = timeOk ? timeComplete : timeFail;
         npcIcon.sprite = npcOk ? npcComplete : npcFail;
         eyeIcon.sprite = blinkOk ? eyeComplete : eyeFail;
         fogIcon.sprite = fogOk ? fogComplete : fogFail;
 
-        // Fade + Scale Panel Complete
         float t = 0f;
         while (t < 1f)
         {
@@ -122,10 +118,8 @@ public class PhotoResultUI : MonoBehaviour
             yield return null;
         }
 
-        // คำนวณจำนวนดาว
         int starCount = PhotoStarCalculator.CalculateStars(score, starThreshold);
 
-        // Map stars -> level score per level
         int levelScore = 0;
         switch (mainQuestLevel)
         {
@@ -134,18 +128,29 @@ public class PhotoResultUI : MonoBehaviour
             case 3: levelScore = (starCount == 3 ? 45 : starCount == 2 ? 30 : starCount == 1 ? 20 : 0); break;
             case 4: levelScore = (starCount == 3 ? 50 : starCount == 2 ? 40 : starCount == 1 ? 30 : 0); break;
         }
+        switch (starCount)
+        {
+            case 1:
+                photoResultReactionSO = GameManager.Instance.photographResultReactionSOArr[0];
+                break;
+            case 2:
+                photoResultReactionSO = GameManager.Instance.photographResultReactionSOArr[1];
+                break;
+            case 3:
+                photoResultReactionSO = GameManager.Instance.photographResultReactionSOArr[2];
+                break;
+        }
         if (GameManager.Instance != null)
         {
             GameManager.Instance.AddMainQuestScore(mainQuestLevel, levelScore);
         }
-        // รีเซ็ตดาวทั้งหมดเป็น fail
+
         for (int i = 0; i < starImages.Length; i++)
         {
             starImages[i].sprite = starFail;
             starImages[i].transform.localScale = starOriginalScales[i];
         }
 
-        // แสดงดาว complete ทีละดวง
         for (int i = 0; i < starCount; i++)
         {
             starImages[i].sprite = starComplete;
@@ -169,12 +174,10 @@ public class PhotoResultUI : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.2f);
         }
     }
-
     public void OnConfirmButton()
     {
         StartCoroutine(HidePopupAnimated());
     }
-
     private IEnumerator HidePopupAnimated()
     {
         float t = 0f;
@@ -188,7 +191,6 @@ public class PhotoResultUI : MonoBehaviour
         }
         resultPanelComplete.SetActive(false);  // ปิดทั้งก้อน
     }
-
     public void OnPlayAgain()
     {
         Time.timeScale = 1f;
@@ -197,17 +199,14 @@ public class PhotoResultUI : MonoBehaviour
 
         if (AudioManager.Instance != null)
         {
-            // ✅ ให้เล่น QuestBGM อีกครั้ง หลังจากรีโหลด
             SceneBGM sceneBGM = FindObjectOfType<SceneBGM>();
             if (sceneBGM != null && sceneBGM.isQuestBGM && sceneBGM.bgm != null)
             {
                 AudioManager.Instance.PlayTemporaryBGMImmediate(sceneBGM.bgm);
             }
         }
-
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
     public void AddPhoto(Sprite photo)
     {
         photoSprite = photo;
@@ -222,11 +221,11 @@ public class PhotoResultUI : MonoBehaviour
 
         if (PhoneAlbumUI_Work.Instance != null)
         {
-            PhoneAlbumUI_Work.Instance.AddPhoto(photoSprite);
+            PhoneAlbumUI_Work.Instance.AddPhoto(photoSprite, photoResultReactionSO);
         }
         if (MainQuestPhotoStorage.Instance != null)
         {
-            MainQuestPhotoStorage.Instance.AddPhoto(photoSprite);
+            //MainQuestPhotoStorage.Instance.AddPhoto(photoSprite);
         }
 
         if (AudioManager.Instance != null)
@@ -234,7 +233,7 @@ public class PhotoResultUI : MonoBehaviour
             AudioManager.Instance.RestoreLastBGM();
         }
 
-        GameObject player = GameManager.Instance != null ? GameManager.Instance.GetPlayer() : null;
+        GameObject player = GameManager.Instance != null ? GameManager.Instance.GetPlayerGameObject() : null;
         if (player != null)
         {
             PlayerPositionManager.SavePlayerPosition(player.transform.position);

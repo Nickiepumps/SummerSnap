@@ -14,7 +14,7 @@ public class InteractableNPC : MonoBehaviour
         if (hasInteracted) return;
 
         if (GameManager.Instance.HasTriggeredDialog(dialogId))
-            return; // เคยเล่นแล้ว
+            return;
 
         if (dialogManager != null && dialogData != null)
         {

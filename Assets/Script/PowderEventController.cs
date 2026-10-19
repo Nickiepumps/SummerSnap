@@ -11,7 +11,7 @@ public class PowderEventController : MonoBehaviour
         // เช็คจาก GameManager ว่า dialog ปัจจุบันมี powder หรือไม่
         if (GameManager.Instance != null && GameManager.Instance.IsCurrentDialogPowdered())
         {
-            var player = GameManager.Instance.GetPlayer();
+            var player = GameManager.Instance.GetPlayerGameObject();
             if (player != null)
             {
                 var controller = player.GetComponent<PlayerController>();

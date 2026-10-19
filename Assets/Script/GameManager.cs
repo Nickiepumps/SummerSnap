@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
             cam.Follow = player.transform;
         }
     }
-    public GameObject GetPlayer() => player;
+    public GameObject GetPlayerGameObject() => player;
     public PlayerController GetPlayerController() => playerController;
     public GameObject GetRyu() => ryu;
     public Animator GetRyuAnimator()
@@ -103,10 +103,9 @@ public class GameManager : MonoBehaviour
     public int scoreInTemple;
 
     private string currentDialogId = null;
-
+    public SOQuestPhotographDetail[] photographResultReactionSOArr;
     public void SetCurrentDialogId(string id) { currentDialogId = id; }
     public string GetCurrentDialogId() { return currentDialogId; }
-
     public void AddMainQuestScore(int level, int score)
     {
         switch (level)
@@ -117,7 +116,6 @@ public class GameManager : MonoBehaviour
             case 4: scoreLevel4 = Mathf.Max(scoreLevel4, score); break;
         }
     }
-
     public int GetMainQuestScore(int level)
     {
         switch (level)
@@ -129,7 +127,6 @@ public class GameManager : MonoBehaviour
             default: return 0;
         }
     }
-
     public void AddDialogScore(string dialogKey, int score)
     {
         if (string.IsNullOrEmpty(dialogKey)) return;
@@ -142,13 +139,11 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-
     public int GetTotalScore()
     {
         return scoreLevel1 + scoreLevel2 + scoreLevel3 + scoreLevel4
              + scoreDekpang + scoreDog + scoreInTemple;
     }
-
     public int CountGoodDialogs(int threshold = 20)
     {
         int count = 0;
@@ -159,25 +154,20 @@ public class GameManager : MonoBehaviour
     }
     public void ResetGame()
     {
-        // รีเซ็ตข้อมูล PlayerData
         playerData = new PlayerData();
 
-        // รีเซ็ต Quest/Photo/Dialog
         takenPhotos.Clear();
         triggeredDialogs.Clear();
         triggeredMainQuests.Clear();
 
-        // รีเซ็ตคะแนน
         scoreLevel1 = scoreLevel2 = scoreLevel3 = scoreLevel4 = 0;
         scoreDekpang = scoreDog = scoreInTemple = 0;
         currentDialogId = null;
         currentDialogHasPowder = false;
 
-        // ลบ player/ryu เก่า
         if (player != null) Destroy(player);
         if (ryu != null) Destroy(ryu);
 
-        // สร้าง player/ryu ใหม่ รอบเดียว
         player = Instantiate(playerPrefab, playerData.lastPosition, Quaternion.identity);
         playerController = player.GetComponent<PlayerController>();
         DontDestroyOnLoad(player);
@@ -190,9 +180,5 @@ public class GameManager : MonoBehaviour
     public void TogglePhotoshootStatus(bool status)
     {
         isPhotoshooting = status;
-    }
-    public void ChangeSceneToMainMenuTest()
-    {
-        SceneManager.LoadScene("LoadingToMainmenu");
     }
 }

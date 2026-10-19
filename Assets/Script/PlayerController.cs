@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using PrimeTween;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,16 +15,20 @@ public class PlayerController : MonoBehaviour
     public RuntimeAnimatorController controllerNoPowder;
     public RuntimeAnimatorController controllerWithPowder;
 
+    public GameObject phoneNotif;
+    public SpriteRenderer phoneNotifSprite;
+    Sequence notifTweenSequence;
+
     public bool canMove = true;
     public bool isOnDialogue {  get; private set; } = false;
     public bool isOnSideQuest = false;
-
-    void Awake()
+    public bool isWalking = false;
+    private void Awake()
     {
         DontDestroyOnLoad(gameObject); // ลบ static flag ออก
     }
 
-    void Start()
+    private void Start()
     {
         animator = GetComponent<Animator>();
 
@@ -47,8 +52,7 @@ public class PlayerController : MonoBehaviour
             animator.runtimeAnimatorController = controllerNoPowder;
         }
     }
-
-    void Update()
+    private void Update()
     {
         if (!canMove)
         {
@@ -64,15 +68,18 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetInteger("PlayerAct", 3);
             isFacingRight = false;
+            isWalking = true;
         }
         else if (horizontalInput > 0)
         {
             animator.SetInteger("PlayerAct", 2);
             isFacingRight = true;
+            isWalking = true;
         }
         else
         {
             animator.SetInteger("PlayerAct", isFacingRight ? 0 : 1);
+            isWalking = false;
         }
 
         if (Mathf.Abs(horizontalInput) > 0.01f)
@@ -89,15 +96,13 @@ public class PlayerController : MonoBehaviour
 
         MovePlayer();
     }
-
-    void MovePlayer()
+    private void MovePlayer()
     {
         if(isOnDialogue == false)
         {
             transform.Translate(movement.x * moveSpeed * Time.deltaTime, 0, 0);
         }
     }
-
     public void SetPowderOnFace(bool value)
     {
         if (value && !hasPowder)
@@ -121,7 +126,24 @@ public class PlayerController : MonoBehaviour
         isOnSideQuest = state;
         canMove = !state;
     }
-    void OnDisable()
+    public void TogglePhoneNotif(bool state)
+    {
+        if (state == true && phoneNotif.activeSelf == true) return;
+
+        if(state == false)
+        {
+            notifTweenSequence.Stop();
+            phoneNotif.SetActive(false);
+        }
+        else
+        {
+            notifTweenSequence = Sequence.Create()
+                .Group(Tween.Scale(phoneNotif.transform, Vector3.zero, Vector3.one, 0.8f, Easing.Standard(Ease.OutBack)))
+                .ChainCallback(() => Tween.Alpha(phoneNotifSprite, 1f, 0f, 0.5f, Easing.Standard(Ease.OutCubic), cycles: -1, cycleMode: CycleMode.Yoyo));
+            phoneNotif.SetActive(true);
+        }
+    }
+    private void OnDisable()
     {
         if (GameManager.Instance != null)
         {

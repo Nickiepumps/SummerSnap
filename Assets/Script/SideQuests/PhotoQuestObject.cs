@@ -8,6 +8,7 @@ public class PhotoQuestObject : MonoBehaviour
     public string questId;
     public Sprite photoSprite;
     public Sprite photoFrameSprite;
+    [SerializeField] private SOQuestPhotographDetail photographDetailSO;
 
     public bool clicked = false;
     private bool isTaken = false;
@@ -34,6 +35,7 @@ public class PhotoQuestObject : MonoBehaviour
         {
             clicked = true;
             photoPreviewSideQuests.ShowButtons(photoSprite, questId, this);
+            photoPreviewSideQuests.currentClickedSideQuestSO = photographDetailSO;
         }
     }
     public void MarkTaken()

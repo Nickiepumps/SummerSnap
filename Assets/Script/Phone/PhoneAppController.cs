@@ -4,7 +4,7 @@ using UnityEngine;
 public class PhoneAppController : MonoBehaviour
 {
     [Header("Phone Settings")]
-    public AudioClip phoneRingClip; // เสียงโทรศัพท์
+    public AudioClip phoneRingClip;
     public GameObject callingUI;
     public float phoneRingLoopDelay = 0.3f;
 
@@ -12,13 +12,14 @@ public class PhoneAppController : MonoBehaviour
     private RyuController ryuController;
     private Coroutine phoneRingCoroutine;
 
-    void Awake()
+    public bool isCallingRyu = false;
+    private void Awake()
     {
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
     }
 
-    void Start()
+    private void Start()
     {
         var ryu = GameManager.Instance.GetRyu();
         if (ryu != null)
@@ -26,20 +27,17 @@ public class PhoneAppController : MonoBehaviour
             ryuController = ryu.GetComponent<RyuController>();
             if (ryuController != null)
             {
-                // ลบ HandleRyuArrived ที่เล่นเสียงหัวเราะ
                 ryuController.OnArrivedAtPlayer += HandleRyuArrivedUIOnly;
             }
         }
     }
-
     public void CallRyuFromPhone()
     {
         if (ryuController != null)
         {
+            isCallingRyu = true;
             PersistentUI.instance.TogglePhoneUI(false);
-
             ryuController.CallRyu();
-
             if (callingUI != null)
                 callingUI.SetActive(true);
 
@@ -61,6 +59,8 @@ public class PhoneAppController : MonoBehaviour
     }
     private void HandleRyuArrivedUIOnly()
     {
+        if (isCallingRyu == false) return;
+
         PersistentUI.instance.TogglePhoneUI(true);
 
         if (phoneRingCoroutine != null)
@@ -72,6 +72,7 @@ public class PhoneAppController : MonoBehaviour
         if (callingUI != null && callingUI.activeSelf)
             callingUI.SetActive(false);
 
+        isCallingRyu = false;
         PhoneUIManager.Instance.TogglePhone();
     }
 
